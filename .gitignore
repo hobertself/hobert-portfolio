@@ -6,3 +6,7 @@ desktop.ini
 # Editor
 .vscode/
 *.swp
+
+# Private tools & personal docs
+.claude/
+*.txt
