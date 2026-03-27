@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>廖勇 · 内容运营 | 个人主页</title>
+  <meta name="description" content="廖勇（Hobert）的个人主页 — 新闻与传播学研究生，求职内容运营方向，擅长AI工具提效与数据驱动创作。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Ma+Shan+Zheng&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep:    #080c20;
+      --bg-dark:    #0f1535;
+      --bg-card:    rgba(255,255,255,0.05);
+      --border:     rgba(255,255,255,0.10);
+      --accent1:    #7c3aed;
+      --accent2:    #06b6d4;
+      --accent3:    #a855f7;
+      --text-main:  #e8eaf6;
+      --text-muted: #94a3b8;
+      --grad-main:  linear-gradient(135deg, #7c3aed, #06b6d4);
+      --grad-warm:  linear-gradient(135deg, #a855f7, #ec4899);
+      --glass:      rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.12);
+      --radius:     16px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; border-radius: var(--radius); }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--accent1); border-radius: 3px; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(8,12,32,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .nav-logo {
+      font-size: 1.4rem; font-weight: 900; letter-spacing: 2px;
+      background: var(--grad-main); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.9rem; color: var(--text-muted); font-weight: 500;
+      transition: color 0.3s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+      background: var(--grad-main); transition: width 0.3s; border-radius: 2px;
+    }
+    .nav-links a:hover { color: var(--text-main); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-toggle span { display: block; width: 25px; height: 2px; background: var(--text-main); border-radius: 2px; transition: all 0.3s; }
+
+    /* ===== HERO ===== */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; padding: 6rem 2rem 4rem;
+    }
+    #particle-canvas {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+    }
+    .hero-bg-img {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0.25; z-index: 0; border-radius: 0;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: radial-gradient(ellipse at 50% 50%, rgba(124,58,237,0.20) 0%, rgba(8,12,32,0.70) 70%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; text-align: center; max-width: 800px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 18px; border-radius: 100px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.5rem;
+      animation: fadeInDown 0.8s ease both;
+    }
+    .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; animation: pulse 2s infinite; }
+    .hero-name {
+      font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 900;
+      line-height: 1.1; margin-bottom: 0.5rem;
+      background: var(--grad-main); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 0 28px rgba(124,58,237,0.45));
+      animation: fadeInDown 0.9s ease 0.1s both;
+    }
+    .hero-sub {
+      font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-muted);
+      margin-bottom: 1rem; font-weight: 300;
+      animation: fadeInDown 0.9s ease 0.18s both;
+    }
+    .hero-title-line {
+      font-size: clamp(1.1rem, 3vw, 1.6rem); font-weight: 700;
+      margin-bottom: 2rem; min-height: 2em;
+      animation: fadeInDown 0.9s ease 0.3s both;
+    }
+    .typewriter {
+      border-right: 3px solid var(--accent2); padding-right: 4px;
+      font-family: 'Playfair Display', 'Noto Sans SC', Georgia, serif;
+      font-style: italic;
+    }
+    .hero-tags {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;
+      margin-bottom: 2.5rem; animation: fadeInUp 0.9s ease 0.4s both;
+    }
+    .tag {
+      padding: 6px 16px; border-radius: 100px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass); backdrop-filter: blur(8px);
+      font-size: 0.82rem; color: var(--text-muted);
+      transition: all 0.3s;
+    }
+    .tag:hover { border-color: var(--accent2); color: var(--accent2); }
+    .hero-btns {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
+      animation: fadeInUp 0.9s ease 0.5s both;
+    }
+    .btn-primary {
+      padding: 14px 32px; border-radius: 100px; font-weight: 700; font-size: 0.95rem;
+      background: var(--grad-main); color: white; border: none; cursor: pointer;
+      box-shadow: 0 0 30px rgba(124,58,237,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(124,58,237,0.6); }
+    .btn-outline {
+      padding: 13px 32px; border-radius: 100px; font-weight: 700; font-size: 0.95rem;
+      border: 1px solid var(--glass-border); background: var(--glass);
+      backdrop-filter: blur(10px); color: var(--text-main); cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-3px); }
+    .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 2; animation: bounce 2s infinite; }
+    .hero-scroll svg { opacity: 0.4; }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 4px;
+      color: var(--accent2); text-transform: uppercase; margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem); font-weight: 900;
+      line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-title span { background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-divider { width: 60px; height: 3px; background: var(--grad-main); border-radius: 2px; margin-bottom: 3rem; }
+
+    /* ===== GLASS CARD ===== */
+    .glass-card {
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: var(--radius); backdrop-filter: blur(20px);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .glass-card:hover { transform: translateY(-6px); border-color: rgba(124,58,237,0.4); box-shadow: 0 20px 60px rgba(124,58,237,0.15); }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--bg-dark); }
+    .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .about-card {
+      padding: 2rem; border-radius: var(--radius);
+    }
+    .about-icon {
+      width: 54px; height: 54px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 1.2rem;
+    }
+    .icon-purple { background: rgba(124,58,237,0.2); }
+    .icon-cyan   { background: rgba(6,182,212,0.2); }
+    .icon-pink   { background: rgba(168,85,247,0.2); }
+    .about-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .about-card p  { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
+
+    /* ===== EDUCATION ===== */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 6px; bottom: 6px;
+      width: 2px; background: linear-gradient(to bottom, var(--accent1), var(--accent2));
+      border-radius: 2px;
+    }
+    .timeline-item { position: relative; margin-bottom: 2.5rem; }
+    .timeline-dot {
+      position: absolute; left: -2.5rem; top: 6px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--grad-main); border: 2px solid var(--bg-deep);
+      box-shadow: 0 0 12px rgba(124,58,237,0.6);
+    }
+    .timeline-card { padding: 1.6rem 1.8rem; border-radius: var(--radius); }
+    .timeline-period { font-size: 0.78rem; color: var(--accent2); font-weight: 600; letter-spacing: 1px; margin-bottom: 0.4rem; }
+    .timeline-school { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .timeline-major { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .badge-wrap { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .badge {
+      padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 600;
+      border: 1px solid rgba(124,58,237,0.4); color: var(--accent3);
+      background: rgba(124,58,237,0.12);
+    }
+    .badge.gold { border-color: rgba(234,179,8,0.4); color: #facc15; background: rgba(234,179,8,0.12); }
+    .badge.cyan { border-color: rgba(6,182,212,0.4); color: var(--accent2); background: rgba(6,182,212,0.12); }
+
+    /* ===== EXPERIENCE ===== */
+    #experience { background: var(--bg-dark); }
+    .exp-grid { display: grid; gap: 2rem; }
+    .exp-card { padding: 2rem; border-radius: var(--radius); }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.2rem; }
+
+    .exp-company { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .exp-role { font-size: 0.85rem; color: var(--accent2); font-weight: 600; }
+    .exp-period { font-size: 0.78rem; color: var(--text-muted); padding: 4px 14px; border-radius: 100px; border: 1px solid var(--border); white-space: nowrap; }
+    .exp-list { list-style: none; }
+    .exp-list li {
+      padding: 0.5rem 0; font-size: 0.9rem; color: var(--text-muted);
+      border-bottom: 1px solid rgba(255,255,255,0.05); line-height: 1.8;
+      display: flex; gap: 0.75rem;
+    }
+    .exp-list li:last-child { border-bottom: none; }
+    .exp-list li::before { content: '▸'; color: var(--accent1); flex-shrink: 0; margin-top: 1px; }
+    .exp-list strong { color: var(--text-main); }
+    .stat-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+    .stat-chip {
+      font-size: 0.8rem; font-weight: 700; padding: 4px 14px; border-radius: 100px;
+      background: var(--grad-main); color: white;
+    }
+
+    /* ===== PROJECTS ===== */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+    .project-card { border-radius: var(--radius); overflow: hidden; }
+    .project-img { width: 100%; height: 200px; object-fit: cover; display: block; border-radius: 0; transition: transform 0.4s; }
+    .project-card:hover .project-img { transform: scale(1.05); }
+    .project-img-wrap { overflow: hidden; }
+    .project-body { padding: 1.6rem; }
+    .project-tags { display: flex; flex-wrap: nowrap; gap: 0.5rem; margin-bottom: 0.8rem; overflow-x: auto; }
+    .project-tag { font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; letter-spacing: 0.5px; white-space: nowrap; flex-shrink: 0; }
+    .tag-research { background: rgba(124,58,237,0.2); color: var(--accent3); border: 1px solid rgba(124,58,237,0.3); }
+    .tag-data     { background: rgba(6,182,212,0.2); color: var(--accent2); border: 1px solid rgba(6,182,212,0.3); }
+    .tag-startup  { background: rgba(236,72,153,0.2); color: #f472b6; border: 1px solid rgba(236,72,153,0.3); }
+    .tag-award    { background: rgba(234,179,8,0.2); color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
+    .project-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .project-period { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.8rem; }
+    .project-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.8; }
+    .project-details { margin-top: 1rem; }
+    .detail-actions { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+    .detail-toggle {
+      background: none; border: 1px solid var(--border); color: var(--text-muted);
+      padding: 6px 16px; border-radius: 100px; font-size: 0.8rem; cursor: pointer;
+      transition: all 0.3s; font-family: inherit;
+    }
+    .detail-toggle:hover { border-color: var(--accent2); color: var(--accent2); }
+    .pdf-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 16px; border-radius: 100px; font-size: 0.8rem; font-weight: 700;
+      background: var(--grad-main); color: white; text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pdf-link:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124,58,237,0.45); }
+    .detail-content { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .detail-content.open { display: block; }
+    .detail-item { margin-bottom: 0.8rem; }
+    .detail-label { font-size: 0.75rem; font-weight: 700; color: var(--accent2); letter-spacing: 1px; margin-bottom: 0.3rem; }
+    .detail-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; }
+
+    /* ===== SKILLS ===== */
+    #skills { background: var(--bg-dark); }
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .skill-group { padding: 2rem; border-radius: var(--radius); position: relative; overflow: hidden; }
+    .skill-group::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .skill-group:nth-child(1)::before { background: linear-gradient(90deg, #7c3aed, #a855f7); }
+    .skill-group:nth-child(2)::before { background: linear-gradient(90deg, #06b6d4, #0ea5e9); }
+    .skill-group:nth-child(3)::before { background: linear-gradient(90deg, #ec4899, #f43f5e); }
+    .skill-group:nth-child(4)::before { background: linear-gradient(90deg, #10b981, #06b6d4); }
+    .skill-group-title { display: flex; align-items: center; gap: 0.75rem; font-size: 1.05rem; font-weight: 700; margin-bottom: 1.2rem; }
+    .skill-group-icon { font-size: 1.5rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .skill-tag {
+      padding: 6px 14px; border-radius: 100px; font-size: 0.82rem; font-weight: 500;
+      border: 1px solid var(--glass-border); background: var(--glass); color: var(--text-muted);
+      transition: all 0.3s;
+    }
+    .skill-tag:hover { color: var(--text-main); border-color: var(--accent1); background: rgba(124,58,237,0.15); }
+
+    /* ===== CONTACT ===== */
+    #contact { text-align: center; }
+    .contact-inner {
+      max-width: 700px; margin: 0 auto;
+      padding: 4rem 2.5rem; border-radius: 24px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      position: relative; overflow: hidden;
+    }
+    .contact-inner::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 250px; height: 250px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.3), transparent 70%);
+      pointer-events: none;
+    }
+    .contact-inner::after {
+      content: ''; position: absolute; bottom: -60px; left: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(6,182,212,0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .contact-subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+    .contact-items { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; position: relative; z-index: 1; }
+    .contact-item {
+      display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+      padding: 1rem 2rem; border-radius: 12px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      font-size: 1rem; transition: all 0.3s; cursor: pointer;
+    }
+    .contact-item:hover { border-color: var(--accent2); background: rgba(6,182,212,0.08); }
+    .contact-item .ci-icon { font-size: 1.2rem; }
+    .contact-item .ci-label { color: var(--text-muted); font-size: 0.85rem; margin-right: 0.5rem; }
+    .contact-item .ci-value { font-weight: 600; }
+    .copy-btn { font-size: 0.75rem; color: var(--accent2); margin-left: 0.5rem; opacity: 0.7; }
+    .contact-note { font-size: 0.82rem; color: var(--text-muted); position: relative; z-index: 1; }
+
+    /* ===== FOOTER ===== */
+    footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); }
+    footer p { font-size: 0.82rem; color: var(--text-muted); }
+    footer span { background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; }
+
+    /* ===== FADE IN ANIMATION ===== */
+    .fade-in {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== KEYFRAMES ===== */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px #22c55e; }
+      50%       { opacity: 0.6; box-shadow: 0 0 16px #22c55e; }
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; padding: 1rem 1.5rem; background: rgba(8,12,32,0.97); border-bottom: 1px solid var(--border); }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+      section { padding: 4rem 1.25rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-name { font-size: clamp(2.5rem, 12vw, 4rem); }
+      .exp-header { flex-direction: column; }
+      .contact-item { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar">
+  <div class="nav-logo">廖勇 <span style="font-size:0.7em;opacity:0.7;letter-spacing:1px;">Hobert</span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">关于我</a></li>
+    <li><a href="#education">教育</a></li>
+    <li><a href="#experience">经历</a></li>
+    <li><a href="#projects">作品集</a></li>
+    <li><a href="#skills">技能</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <img class="hero-bg-img" src="images/hero-bg.png" alt="背景" />
+  <div class="hero-overlay"></div>
+  <canvas id="particle-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      正在寻找内容运营实习机会
+    </div>
+    <h1 class="hero-name">廖勇</h1>
+    <p class="hero-sub">Hobert · 南京师范大学 · 新闻与传播</p>
+    <div class="hero-title-line">
+      <span class="typewriter" id="typewriter"></span>
+    </div>
+    <div class="hero-tags">
+      <span class="tag">📝 内容运营</span>
+      <span class="tag">🤖 AI 提效</span>
+      <span class="tag">📊 数据分析</span>
+      <span class="tag">🎬 短视频创作</span>
+      <span class="tag">🔍 用户研究</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">查看作品集</a>
+      <a href="#contact" class="btn-outline">联系我</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="container">
+    <p class="section-label fade-in">关于我</p>
+    <h2 class="section-title fade-in">用数据讲故事，<span>用创意驱动增长</span></h2>
+    <div class="section-divider fade-in"></div>
+    <div class="about-grid">
+      <div class="glass-card about-card fade-in">
+        <div class="about-icon icon-purple">🤖</div>
+        <h3>善用 AI 工具赋能</h3>
+        <p>熟悉从 Prompt 撰写到 Agent-Skill 搭建的基本流程，积极探索将 AI 工具融入内容创作工作流，有效提升日常工作效率。</p>
+      </div>
+      <div class="glass-card about-card fade-in">
+        <div class="about-icon icon-cyan">🚀</div>
+        <h3>0 到 1 产品策划</h3>
+        <p>参与过完整 AI 产品实战项目全周期，从需求挖掘、方案设计到开发测试迭代，具备将创意落地为可执行产品的系统化思维。</p>
+      </div>
+      <div class="glass-card about-card fade-in">
+        <div class="about-icon icon-pink">📡</div>
+        <h3>互联网思维</h3>
+        <p>新传学科背景，擅长结合 SPSS、Python 等数据工具深度理解用户需求，将抽象洞察转化为具体可执行的内容与运营策略。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EDUCATION ===== -->
+<section id="education">
+  <div class="container">
+    <p class="section-label fade-in">教育背景</p>
+    <h2 class="section-title fade-in"><span>学习经历</span></h2>
+    <div class="section-divider fade-in"></div>
+    <div class="timeline fade-in">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="glass-card timeline-card">
+          <div class="timeline-period">2024.09 — 2027.06（在读）</div>
+          <div class="timeline-school">🎓 南京师范大学</div>
+          <div class="timeline-major">新闻与传播学 · 硕士研究生</div>
+          <div class="badge-wrap">
+            <span class="badge gold">一等学业奖学金（前10%）</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="glass-card timeline-card">
+          <div class="timeline-period">2020.09 — 2024.06</div>
+          <div class="timeline-school">🎓 天津体育学院</div>
+          <div class="timeline-major">公共事业管理 · 本科 · GPA 3.6/4.0（前5%）</div>
+          <div class="badge-wrap">
+            <span class="badge gold">优秀毕业论文（前5%）</span>
+            <span class="badge gold">国家励志奖学金 × 3（前5%）</span>
+            <span class="badge gold">一等学业奖学金（前1%）</span>
+            <span class="badge">正大杯市场调研大赛二等奖</span>
+            <span class="badge">挑战杯铜奖</span>
+            <span class="badge cyan">三好学生（前1%）</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE ===== -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label fade-in">实习经历</p>
+    <h2 class="section-title fade-in">在真实场景中<span>打磨内容能力</span></h2>
+    <div class="section-divider fade-in"></div>
+    <div class="exp-grid">
+      <div class="glass-card exp-card fade-in">
+        <div class="exp-header">
+          <div class="exp-meta">
+            <div class="exp-company">📰 新华日报传媒集团 · 南京晨报</div>
+            <div class="exp-role">健康事业部实习记者</div>
+          </div>
+          <span class="exp-period">2025.07 — 2025.09</span>
+        </div>
+        <ul class="exp-list">
+          <li><div>产出专业健康内容稿件；引入 AI 转录与摘要工具对采访素材进行加工，<strong>内容生产效率提升约 30%</strong>，降低重复劳动。</div></li>
+          <li><div>落地「短视频 + 深度文章」双轨内容策略，制作就医攻略等服务型短视频，并对用户反馈进行分析追踪。</div></li>
+          <li><div>基于数据分析（短视频完播率等关键指标）持续迭代内容选题与形式，保持<strong>平均阅读量 5000+</strong> 稳定水平。</div></li>
+        </ul>
+        <div class="stat-chips">
+          <span class="stat-chip">效率 +30%</span>
+          <span class="stat-chip">平均阅读 5000+</span>
+        </div>
+      </div>
+      <div class="glass-card exp-card fade-in">
+        <div class="exp-header">
+          <div class="exp-meta">
+            <div class="exp-company">🏛️ 福建驻津团工委 · 组织部</div>
+            <div class="exp-role">组织部干事（兼公众号运营）</div>
+          </div>
+          <span class="exp-period">2021.10 — 2022.10</span>
+        </div>
+        <ul class="exp-list">
+          <li><div>主导策划 3 场线下青年活动，累计服务 <strong>300+ 名青年成员</strong>，完整负责从选题到执行的全链路。</div></li>
+          <li><div>运营官方微信公众号，独立产出「八闽妙语」等 20+ 篇原创文化类推文，积累内容运营经验。</div></li>
+          <li><div>协调跨部门资源，梳理并优化活动执行 SOP，提升协作效率。</div></li>
+        </ul>
+        <div class="stat-chips">
+          <span class="stat-chip">服务 300+ 人</span>
+          <span class="stat-chip">20+ 原创推文</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label fade-in">作品集</p>
+    <h2 class="section-title fade-in">数据驱动的<span>研究与策略</span></h2>
+    <div class="section-divider fade-in"></div>
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="glass-card project-card fade-in">
+        <div class="project-img-wrap">
+          <img class="project-img" src="images/project-sports.png" alt="夜间体育经济研究" loading="lazy" />
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag tag-research">大创项目</span>
+            <span class="project-tag tag-data">SPSS建模</span>
+            <span class="project-tag tag-award">🏆 天津市级立项</span>
+          </div>
+          <div class="project-title">天津市夜间体育经济业态现状分析与高质量发展</div>
+          <div class="project-period">2022.11 — 2023.04</div>
+          <div class="project-desc">针对天津市「运动之都」建设背景，深入7大街区、5大场馆，采集222份有效问卷，运用主成分分析与线性回归模型量化产业增长动力。</div>
+          <div class="project-details">
+            <div class="detail-actions">
+              <button class="detail-toggle" onclick="toggleDetail(this)">展开详情 ▾</button>
+              <a href="docs/report-sports.pdf" target="_blank" class="pdf-link">📄 查看报告</a>
+            </div>
+            <div class="detail-content">
+              <div class="detail-item">
+                <div class="detail-label">业务背景</div>
+                <div class="detail-text">响应天津市建设「运动之都」的政策号召，为夜间体育经济四大业态发展提供数据支撑与政策建议。</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">方法论</div>
+                <div class="detail-text">分层抽样确保数据代表性，SPSS 主成分分析确定指标权重，线性回归模型量化「推广、内容、基础」三大维度的带动作用。</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">核心成果</div>
+                <div class="detail-text">梳理9大行业痛点，提出7项转型策略（含整合营销、特色IP打造），输出3万字商业分析报告，从44个项目中脱颖而出，获评市级创新训练项目并成功结项。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="glass-card project-card fade-in">
+        <div class="project-img-wrap">
+          <img class="project-img" src="images/project-skate.png" alt="Justice滑板用户研究" loading="lazy" />
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag tag-research">市场调研</span>
+            <span class="project-tag tag-data">Python 爬虫</span>
+            <span class="project-tag tag-award">🏆 市级二等奖</span>
+          </div>
+          <div class="project-title">天津市滑板爱好者关于 Justice 滑板购买意愿及影响因素的调查</div>
+          <div class="project-period">2022.09 — 2023.06</div>
+          <div class="project-desc">滑板运动入奥背景下，通过Python爬取100+条电商评论预判需求，结合393份问卷，引入NPS对标竞品，为本土品牌提供精准策略。</div>
+          <div class="project-details">
+            <div class="detail-actions">
+              <button class="detail-toggle" onclick="toggleDetail(this)">展开详情 ▾</button>
+              <a href="docs/report-skate.pdf" target="_blank" class="pdf-link">📄 查看报告</a>
+            </div>
+            <div class="detail-content">
+              <div class="detail-item">
+                <div class="detail-label">用户需求洞察</div>
+                <div class="detail-text">Python 爬取电商平台真实评论预判需求热点，线上社群 + 线下滑板公园多渠道回收 393 份有效问卷，保证数据代表性。</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">数据分析方法</div>
+                <div class="detail-text">SPSS 统计分析 + PCA 降维筛选关键影响因素，引入 NPS（净推荐值）评估用户忠诚度，逆向拆解头部竞品 DBH 的附加值优势。</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">商业策略输出</div>
+                <div class="detail-text">输出 6 项可执行的产品与运营优化策略（新材料性能升级、客服体系优化等），荣获「正大杯」全国大学生市场调查大赛天津赛区二等奖。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="glass-card project-card fade-in">
+        <div class="project-img-wrap">
+          <img class="project-img" src="images/project-rental.png" alt="高校体育器材租赁平台" loading="lazy" />
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag tag-startup">创新创意项目</span>
+            <span class="project-tag tag-data">O2O 模式</span>
+            <span class="project-tag tag-award">🏆 挑战杯铜奖</span>
+          </div>
+          <div class="project-title">大学生体育闲置器材「云租赁+智能交易柜」的融合设计与实践构想</div>
+          <div class="project-period">2021.06 — 2022.07</div>
+          <div class="project-desc">发现80%非体育专业学生闲置器材痛点，通过284份问卷验证市场需求，设计「线上小程序 + 线下智能柜」O2O解决方案，获挑战杯铜奖。</div>
+          <div class="project-details">
+            <div class="detail-actions">
+              <button class="detail-toggle" onclick="toggleDetail(this)">展开详情 ▾</button>
+              <a href="docs/report-rental.pdf" target="_blank" class="pdf-link">📄 查看报告</a>
+            </div>
+            <div class="detail-content">
+              <div class="detail-item">
+                <div class="detail-label">问题发现</div>
+                <div class="detail-text">市场调研（284份有效问卷）发现80%非体育专业学生存在闲置体育器材问题，同时有临时借用需求却缺乏渠道。</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">解决方案</div>
+                <div class="detail-text">通过 SWOT 分析验证可行性，设计「线上微信小程序 + 线下智能储物柜」的 O2O 共享租赁模式，降低闲置资源浪费。</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">项目成果</div>
+                <div class="detail-text">产出详细市场调研报告与商业计划书，在挑战杯全国大学生创业竞赛中荣获铜奖，获导师及评委高度认可。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label fade-in">技能</p>
+    <h2 class="section-title fade-in">工具箱 <span>&amp; 硬实力</span></h2>
+    <div class="section-divider fade-in"></div>
+    <div class="skills-grid">
+      <div class="glass-card skill-group fade-in">
+        <div class="skill-group-title">
+          <span class="skill-group-icon">✍️</span> 内容创作
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">短视频策划</span>
+          <span class="skill-tag">公众号运营</span>
+          <span class="skill-tag">稿件撰写</span>
+          <span class="skill-tag">选题策划</span>
+        </div>
+      </div>
+      <div class="glass-card skill-group fade-in">
+        <div class="skill-group-title">
+          <span class="skill-group-icon">📊</span> 数据分析
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">SPSS</span>
+          <span class="skill-tag">AMOS</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Excel 数据透视表和Vlookup</span>
+          <span class="skill-tag">问卷设计</span>
+          <span class="skill-tag">主成分分析</span>
+        </div>
+      </div>
+      <div class="glass-card skill-group fade-in">
+        <div class="skill-group-title">
+          <span class="skill-group-icon">🎨</span> 创意设计
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Photoshop</span>
+          <span class="skill-tag">Premiere Pro</span>
+          <span class="skill-tag">After Effects</span>
+          <span class="skill-tag">Audition</span>
+          <span class="skill-tag">剪映</span>
+        </div>
+      </div>
+      <div class="glass-card skill-group fade-in">
+        <div class="skill-group-title">
+          <span class="skill-group-icon">🤖</span> AI技术栈
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Prompt撰写</span>
+          <span class="skill-tag">Agent-skills搭建</span>
+          <span class="skill-tag">AI 辅助写作</span>
+          <span class="skill-tag">Cursor</span>
+          <span class="skill-tag">Google Antigravity</span>
+          <span class="skill-tag">熟练使用国内外知名大模型</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label fade-in">联系我</p>
+    <h2 class="section-title fade-in">期待与你的<span>每一次连接</span></h2>
+    <div class="section-divider fade-in" style="margin-left:auto;margin-right:auto;"></div>
+    <div class="contact-inner fade-in">
+      <p class="contact-subtitle">正在寻找内容运营方向的实习机会，欢迎 HR 和感兴趣的朋友联系我 👋</p>
+      <div class="contact-items">
+        <div class="contact-item" onclick="copyToClipboard('hobertself@outlook.com', this)">
+          <span class="ci-icon">📧</span>
+          <span class="ci-label">邮箱</span>
+          <span class="ci-value">hobertself@outlook.com</span>
+          <span class="copy-btn">点击复制</span>
+        </div>
+        <div class="contact-item" onclick="copyToClipboard('13215907120', this)">
+          <span class="ci-icon">💬</span>
+          <span class="ci-label">微信</span>
+          <span class="ci-value">13215907120</span>
+          <span class="copy-btn">点击复制</span>
+        </div>
+        <div class="contact-item">
+          <span class="ci-icon">🎓</span>
+          <span class="ci-label">学校</span>
+          <span class="ci-value">南京师范大学 · 新闻与传播</span>
+        </div>
+      </div>
+      <p class="contact-note">📍 目标城市：上海 &nbsp;|&nbsp; 可随时开始实习</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>&copy; 2026 <span>廖勇 &middot; Hobert</span> &nbsp;&middot;&nbsp; 让世界听到你的声音</p>
+</footer>
+
+<script>
+  /* ===== PARTICLE CANVAS ===== */
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = document.getElementById('hero').offsetHeight;
+  }
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = (Math.random() - 0.5) * 0.4;
+      this.r = Math.random() * 1.8 + 0.4;
+      this.alpha = Math.random() * 0.5 + 0.2;
+      this.color = Math.random() > 0.5 ? '124,58,237' : '6,182,212';
+    }
+    update() {
+      this.x += this.vx; this.y += this.vy;
+      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    const count = Math.min(Math.floor(canvas.width * canvas.height / 10000), 150);
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    // Draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(124,58,237,${0.12 * (1 - dist/100)})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animateParticles);
+  }
+
+  resizeCanvas(); initParticles(); animateParticles();
+  window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+
+  /* ===== TYPEWRITER ===== */
+  const lines = [
+    '内容运营 × 数据思维 × AI 提效',
+    '用内容连接用户，用数据验证价值',
+    'Let the world hear your voice!'
+  ];
+  let li = 0, ci = 0, deleting = false;
+  const tw = document.getElementById('typewriter');
+  function type() {
+    const cur = lines[li];
+    if (!deleting) {
+      tw.textContent = cur.slice(0, ++ci);
+      if (ci === cur.length) { deleting = true; setTimeout(type, 2000); return; }
+    } else {
+      tw.textContent = cur.slice(0, --ci);
+      if (ci === 0) { deleting = false; li = (li + 1) % lines.length; }
+    }
+    setTimeout(type, deleting ? 40 : 80);
+  }
+  type();
+
+  /* ===== SCROLL FADE IN ===== */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  /* ===== NAV TOGGLE ===== */
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  /* ===== PROJECT DETAIL TOGGLE ===== */
+  function toggleDetail(btn) {
+    const actions = btn.closest('.detail-actions');
+    const content = actions ? actions.nextElementSibling : btn.nextElementSibling;
+    const open = content.classList.toggle('open');
+    btn.textContent = open ? '收起详情 ▴' : '展开详情 ▾';
+  }
+
+  /* ===== COPY TO CLIPBOARD ===== */
+  function copyToClipboard(text, el) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = el.querySelector('.copy-btn');
+      btn.textContent = '✅ 已复制';
+      setTimeout(() => btn.textContent = '点击复制', 2000);
+    });
+  }
+</script>
+</body>
+</html>
