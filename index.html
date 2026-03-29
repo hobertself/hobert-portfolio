@@ -372,6 +372,20 @@
       50%       { opacity: 0.6; box-shadow: 0 0 16px #22c55e; }
     }
 
+    /* ===== VIDEO PORTFOLIO ===== */
+    #videos { background: var(--bg-deep); }
+    .video-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+    .video-embed-wrap {
+      position: relative; width: 100%; border-radius: var(--radius); overflow: hidden;
+      background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border);
+      aspect-ratio: 16/9;
+    }
+    .video-embed-wrap video { width: 100%; height: 100%; border: none; display: block; }
+    .video-info { padding: 0; }
+    .video-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .video-meta { font-size: 0.82rem; color: var(--accent2); font-weight: 600; letter-spacing: 1px; margin-bottom: 1.2rem; }
+    .video-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.9; }
+
     /* ===== MOBILE ===== */
     @media (max-width: 768px) {
       nav { padding: 1rem 1.25rem; }
@@ -381,6 +395,7 @@
       section { padding: 4rem 1.25rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr; }
+      .video-layout { grid-template-columns: 1fr; }
       .hero-name { font-size: clamp(2.5rem, 12vw, 4rem); }
       .exp-header { flex-direction: column; }
       .contact-item { flex-direction: column; text-align: center; }
@@ -397,6 +412,7 @@
     <li><a href="#education">教育</a></li>
     <li><a href="#experience">经历</a></li>
     <li><a href="#projects">作品集</a></li>
+    <li><a href="#videos">视频</a></li>
     <li><a href="#skills">技能</a></li>
     <li><a href="#contact">联系</a></li>
   </ul>
@@ -669,6 +685,32 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ===== VIDEOS ===== -->
+<section id="videos">
+  <div class="container">
+    <p class="section-label fade-in">视频作品</p>
+    <h2 class="section-title fade-in">用镜头<span>讲述故事</span></h2>
+    <div class="section-divider fade-in"></div>
+    <div class="video-layout fade-in">
+      <div class="video-embed-wrap">
+        <video controls preload="metadata" style="border-radius:var(--radius);">
+          <source src="videos/skate-intro.mp4" type="video/mp4" />
+          您的浏览器不支持 HTML5 视频播放。
+        </video>
+      </div>
+      <div class="video-info">
+        <div class="video-meta">🏂 原创短视频 &nbsp;·&nbsp; 2'52"</div>
+        <div class="video-title">滑板的种类及玩法介绍</div>
+        <div class="video-desc">
+          <p>一支集策划、拍摄、剪辑于一体的原创科普短视频。以通俗易懂的叙事逻辑，系统介绍鱼板、香蕉板、长板（舞板 / 自由式 / 速降）、陆地冲浪板的形态特点与适用场景，带领观众走进滑板运动的多元文化圈子。</p>
+          <br/>
+          <p>视频采用「主持出镜 + 实地运动画面」双轨叙事结构，结合三分屏对比剪辑、动态字幕与 B-roll 穿插，实现从信息传递到视觉体验的平衡。整体制作流程独立完成，涵盖脚本撰写、实地拍摄、多轨音频混音与后期精剪（剪映 / Premiere Pro）。</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
