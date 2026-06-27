@@ -400,9 +400,99 @@
       .exp-header { flex-direction: column; }
       .contact-item { flex-direction: column; text-align: center; }
     }
+
+    /* ===== SCROLL PROGRESS ===== */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: var(--grad-main); z-index: 10000;
+      box-shadow: 0 0 14px rgba(124,58,237,0.9); transition: width 0.05s;
+    }
+    /* ===== CURSOR GLOW ===== */
+    #cursor-glow {
+      position: fixed; width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.10) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+      transform: translate(-50%, -50%);
+      transition: left 0.12s ease, top 0.12s ease;
+    }
+    /* ===== FLOATING ORBS ===== */
+    .bg-orb {
+      position: fixed; border-radius: 50%; filter: blur(100px);
+      opacity: 0.13; pointer-events: none; z-index: 0;
+    }
+    .bg-orb-1 {
+      width: 650px; height: 650px; background: #7c3aed;
+      top: -180px; left: -180px;
+      animation: orb-float1 20s ease-in-out infinite;
+    }
+    .bg-orb-2 {
+      width: 500px; height: 500px; background: #06b6d4;
+      bottom: 8%; right: -120px;
+      animation: orb-float2 25s ease-in-out infinite;
+    }
+    .bg-orb-3 {
+      width: 420px; height: 420px; background: #ec4899;
+      top: 45%; left: 30%;
+      animation: orb-float3 30s ease-in-out infinite;
+    }
+    @keyframes orb-float1 {
+      0%,100% { transform: translate(0,0); }
+      33% { transform: translate(70px,50px); }
+      66% { transform: translate(-40px,80px); }
+    }
+    @keyframes orb-float2 {
+      0%,100% { transform: translate(0,0); }
+      33% { transform: translate(-60px,-70px); }
+      66% { transform: translate(50px,-30px); }
+    }
+    @keyframes orb-float3 {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(90px,-60px); }
+    }
+    /* ===== ANIMATED GRADIENT TEXT ===== */
+    .section-title span {
+      background: linear-gradient(90deg, #7c3aed, #06b6d4, #a855f7, #ec4899, #06b6d4, #7c3aed);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: text-shine 6s linear infinite;
+    }
+    @keyframes text-shine {
+      0% { background-position: 0% center; }
+      100% { background-position: 300% center; }
+    }
+    /* ===== HERO NAME PULSE ===== */
+    .hero-name { animation: name-pulse 4s ease-in-out infinite; }
+    @keyframes name-pulse {
+      0%,100% { text-shadow: 0 0 60px rgba(124,58,237,0.4), 0 0 120px rgba(6,182,212,0.2); }
+      50% { text-shadow: 0 0 90px rgba(168,85,247,0.7), 0 0 180px rgba(6,182,212,0.4); }
+    }
+    /* ===== HERO BADGE FLOAT ===== */
+    .hero-badge { animation: badge-float 3s ease-in-out infinite; }
+    @keyframes badge-float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    /* ===== STAT CHIP SHINE ===== */
+    .stat-chip { position: relative; overflow: hidden; }
+    .stat-chip::after {
+      content: ''; position: absolute; top: 0; left: -100%;
+      width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      animation: chip-shine 2.5s ease-in-out infinite;
+    }
+    @keyframes chip-shine { 0% { left:-100%; } 60%,100% { left:150%; } }
+    /* ===== CARD TILT TRANSITION ===== */
+    .glass-card { transform-style: preserve-3d; will-change: transform; }
   </style>
 </head>
 <body>
+<div id="scroll-progress"></div>
+<div id="cursor-glow"></div>
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
 
 <!-- ===== NAV ===== -->
 <nav id="navbar">
@@ -960,6 +1050,64 @@
       setTimeout(() => btn.textContent = '点击复制', 2000);
     });
   }
+
+  /* ===== SCROLL PROGRESS ===== */
+  const progressBar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    if (total > 0) progressBar.style.width = (scrolled / total * 100) + '%';
+  }, { passive: true });
+
+  /* ===== CURSOR GLOW ===== */
+  const cursorGlow = document.getElementById('cursor-glow');
+  window.addEventListener('mousemove', e => {
+    cursorGlow.style.left = e.clientX + 'px';
+    cursorGlow.style.top = e.clientY + 'px';
+  }, { passive: true });
+
+  /* ===== 3D CARD TILT ===== */
+  document.querySelectorAll('.glass-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      const cx = r.width / 2, cy = r.height / 2;
+      const rx = ((y - cy) / cy) * -7;
+      const ry = ((x - cx) / cx) * 7;
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
+      card.style.transition = 'transform 0.1s ease';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform 0.4s ease';
+    });
+  });
+
+  /* ===== COUNT-UP ANIMATION ===== */
+  function countUp(el) {
+    const orig = el.dataset.orig || el.innerText;
+    el.dataset.orig = orig;
+    const m = orig.match(/[\d.]+/);
+    if (!m) return;
+    const target = parseFloat(m[0]);
+    const dec = m[0].includes('.') ? m[0].split('.')[1].length : 0;
+    const pre = orig.slice(0, orig.indexOf(m[0]));
+    const suf = orig.slice(orig.indexOf(m[0]) + m[0].length);
+    let start = null;
+    const dur = 1400;
+    function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.innerText = pre + (target * ease).toFixed(dec) + suf;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const cntObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); cntObs.unobserve(e.target); } });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.stat-chip').forEach(el => cntObs.observe(el));
 </script>
 </body>
 </html>
