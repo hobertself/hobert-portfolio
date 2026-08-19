@@ -12,8 +12,8 @@
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg-deep:    #080c20;
-      --bg-dark:    #0f1535;
+      --bg-deep:    rgba(8, 12, 32, 0.3);
+      --bg-dark:    rgba(15, 21, 53, 0.3);
       --bg-card:    rgba(255,255,255,0.05);
       --border:     rgba(255,255,255,0.10);
       --accent1:    #7c3aed;
@@ -30,7 +30,7 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Noto Sans SC', sans-serif;
-      background: var(--bg-deep);
+      background: transparent;
       color: var(--text-main);
       overflow-x: hidden;
       line-height: 1.7;
@@ -38,30 +38,34 @@
     }
     a, button, .proj-header, .contact-item { cursor: none !important; }
     
-    /* ===== CUSTOM CURSOR & TRAIL ===== */
+    /* ===== AMBIENT BACKGROUND & CANVAS TRAIL ===== */
     #trail-canvas {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       pointer-events: none; z-index: 9998;
     }
-    .custom-cursor {
-      position: fixed; top: 0; left: 0; width: 24px; height: 24px;
-      border: 2px solid var(--accent2); border-radius: 50%;
-      pointer-events: none; z-index: 10001;
-      will-change: transform, width, height, background-color, border-color;
-      margin: -12px 0 0 -12px;
-      transition: width 0.15s, height 0.15s, background-color 0.15s, border-color 0.15s, margin 0.15s;
-      box-shadow: 0 0 15px rgba(6,182,212,0.6);
+    
+    .ambient-bg {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -1; overflow: hidden; pointer-events: none;
+      background: #080c20;
     }
-    .custom-cursor.hovering {
-      width: 45px; height: 45px;
-      margin: -22.5px 0 0 -22.5px;
-      background-color: rgba(124,58,237,0.15);
-      border-color: var(--accent1);
-      box-shadow: 0 0 25px rgba(124,58,237,0.7);
+    .ambient-blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); opacity: 0.35;
+      animation: ambient-drift 18s infinite alternate ease-in-out;
+      will-change: transform;
     }
-    .custom-cursor.clicking {
-      width: 16px; height: 16px;
-      margin: -8px 0 0 -8px;
+    .ambient-blob.purple { width: 45vw; height: 45vw; background: #7c3aed; top: -10vw; left: -10vw; }
+    .ambient-blob.cyan { width: 35vw; height: 35vw; background: #06b6d4; bottom: -5vw; right: -5vw; animation-delay: -9s; animation-duration: 22s; }
+    .ambient-blob.pink { width: 30vw; height: 30vw; background: #ec4899; top: 40vh; left: 30vw; opacity: 0.15; animation-duration: 25s; }
+    @keyframes ambient-drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(6vw, 4vh) scale(1.05); }
+    }
+    .ambient-noise {
+      position: absolute; inset: 0; opacity: 0.8;
+      background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
     }
 
     a { text-decoration: none; color: inherit; }
@@ -106,7 +110,7 @@
       position: relative; min-height: 100vh;
       display: flex; align-items: center; justify-content: center;
       overflow: hidden; text-align: center;
-      background: radial-gradient(circle at center, var(--bg-dark) 0%, var(--bg-deep) 100%);
+      background: transparent;
     }
     .hero-content {
       position: relative; z-index: 2; text-align: center; max-width: 800px;
@@ -609,9 +613,12 @@
 <body>
 <div id="scroll-progress"></div>
 <div id="cursor-glow"></div>
-<div class="bg-orb bg-orb-1"></div>
-<div class="bg-orb bg-orb-2"></div>
-<div class="bg-orb bg-orb-3"></div>
+<div class="ambient-bg">
+  <div class="ambient-blob purple"></div>
+  <div class="ambient-blob cyan"></div>
+  <div class="ambient-blob pink"></div>
+  <div class="ambient-noise"></div>
+</div>
 
 <!-- ===== NAV ===== -->
 <nav id="navbar">
@@ -1181,11 +1188,7 @@
   }
   type();
 
-  /* ===== MOUSE TRAIL & CUSTOM CURSOR ===== */
-  const cursor = document.createElement('div');
-  cursor.className = 'custom-cursor';
-  document.body.appendChild(cursor);
-  
+  /* ===== MOUSE TRAIL & CUSTOM CURSOR (ULTRA SMOOTH) ===== */
   const trailCanvas = document.createElement('canvas');
   trailCanvas.id = 'trail-canvas';
   document.body.appendChild(trailCanvas);
@@ -1201,43 +1204,64 @@
 
   let targetX = window.innerWidth / 2;
   let targetY = window.innerHeight / 2;
+  let cursorX = targetX;
+  let cursorY = targetY;
+  let isHover = false;
+  let isClick = false;
+  let ringRadius = 12;
 
   window.addEventListener('mousemove', e => {
     targetX = e.clientX;
     targetY = e.clientY;
-    trails.push({ x: targetX, y: targetY, life: 1, size: Math.random() * 3 + 2 });
+    trails.push({ x: targetX, y: targetY, life: 1, size: Math.random() * 2 + 1.5 });
   }, { passive: true });
 
-  // Use requestAnimationFrame for super smooth cursor
-  function updateCursor() {
-    cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
-    requestAnimationFrame(updateCursor);
-  }
-  updateCursor();
+  window.addEventListener('mousedown', () => isClick = true);
+  window.addEventListener('mouseup', () => isClick = false);
 
-  window.addEventListener('mousedown', () => cursor.classList.add('clicking'));
-  window.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
-
-  document.querySelectorAll('a, button, .proj-header, .contact-item').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button, .proj-header, .contact-item')) isHover = true;
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button, .proj-header, .contact-item')) isHover = false;
   });
 
   function renderTrail() {
     tCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+    
+    // Lerp Cursor
+    cursorX += (targetX - cursorX) * 0.4;
+    cursorY += (targetY - cursorY) * 0.4;
+    let targetR = isHover ? 22 : (isClick ? 8 : 12);
+    ringRadius += (targetR - ringRadius) * 0.2;
+
+    // Draw Particles
     for(let i=0; i<trails.length; i++) {
       let p = trails[i];
       tCtx.beginPath();
       tCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI*2);
-      tCtx.fillStyle = `rgba(6, 182, 212, ${p.life})`;
-      tCtx.shadowBlur = 10;
-      tCtx.shadowColor = '#06b6d4';
+      // Removed slow shadowBlur, added pure opacity fading for 60fps+
+      tCtx.fillStyle = `rgba(6, 182, 212, ${p.life * 0.8})`;
       tCtx.fill();
-      p.life -= 0.025; 
+      p.life -= 0.03; 
       p.x += (Math.random()-0.5)*1.5; 
-      p.y += Math.random()*1; 
+      p.y += (Math.random()*0.8); 
     }
     trails = trails.filter(p => p.life > 0);
+
+    // Draw Custom Cursor Ring
+    tCtx.beginPath();
+    tCtx.arc(cursorX, cursorY, ringRadius, 0, Math.PI*2);
+    tCtx.lineWidth = 2;
+    if (isHover) {
+      tCtx.strokeStyle = 'rgba(124, 58, 237, 0.8)';
+      tCtx.fillStyle = 'rgba(124, 58, 237, 0.15)';
+      tCtx.fill();
+    } else {
+      tCtx.strokeStyle = 'rgba(6, 182, 212, 0.8)';
+    }
+    tCtx.stroke();
+
     requestAnimationFrame(renderTrail);
   }
   renderTrail();
