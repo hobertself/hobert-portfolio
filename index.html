@@ -7,24 +7,24 @@
   <meta name="description" content="廖勇（Hobert）的个人主页 — 新闻与传播学研究生，求职内容运营方向，擅长AI工具提效与数据驱动创作。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Ma+Shan+Zheng&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Ma+Shan+Zheng&family=Caveat:wght@400;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg-deep:    #080c20;
-      --bg-dark:    #0f1535;
-      --bg-card:    rgba(255,255,255,0.05);
-      --border:     rgba(255,255,255,0.10);
-      --accent1:    #7c3aed;
-      --accent2:    #06b6d4;
-      --accent3:    #a855f7;
-      --text-main:  #e8eaf6;
-      --text-muted: #94a3b8;
-      --grad-main:  linear-gradient(135deg, #7c3aed, #06b6d4);
-      --grad-warm:  linear-gradient(135deg, #a855f7, #ec4899);
-      --glass:      rgba(255,255,255,0.06);
-      --glass-border: rgba(255,255,255,0.12);
+      --bg-deep:    #150800;
+      --bg-dark:    #1f0e00;
+      --bg-card:    rgba(255,160,60,0.07);
+      --border:     rgba(255,180,80,0.15);
+      --accent1:    #f97316;
+      --accent2:    #f59e0b;
+      --accent3:    #fbbf24;
+      --text-main:  #fef3c7;
+      --text-muted: #a37c4a;
+      --grad-main:  linear-gradient(135deg, #f97316, #f59e0b);
+      --grad-warm:  linear-gradient(135deg, #ef4444, #f97316);
+      --glass:      rgba(255,200,80,0.06);
+      --glass-border: rgba(255,200,80,0.15);
       --radius:     16px;
     }
     html { scroll-behavior: smooth; }
@@ -35,6 +35,8 @@
       overflow-x: hidden;
       line-height: 1.7;
     }
+    h1, h2 { font-family: 'Ma Shan Zheng', 'Noto Sans SC', sans-serif; }
+    .nav-logo { font-family: 'Ma Shan Zheng', cursive; letter-spacing: 2px; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; border-radius: var(--radius); }
 
@@ -421,17 +423,17 @@
       opacity: 0.13; pointer-events: none; z-index: 0;
     }
     .bg-orb-1 {
-      width: 650px; height: 650px; background: #7c3aed;
+      width: 650px; height: 650px; background: #f97316;
       top: -180px; left: -180px;
       animation: orb-float1 20s ease-in-out infinite;
     }
     .bg-orb-2 {
-      width: 500px; height: 500px; background: #06b6d4;
+      width: 500px; height: 500px; background: #f59e0b;
       bottom: 8%; right: -120px;
       animation: orb-float2 25s ease-in-out infinite;
     }
     .bg-orb-3 {
-      width: 420px; height: 420px; background: #ec4899;
+      width: 420px; height: 420px; background: #ef4444;
       top: 45%; left: 30%;
       animation: orb-float3 30s ease-in-out infinite;
     }
@@ -451,7 +453,7 @@
     }
     /* ===== ANIMATED GRADIENT TEXT ===== */
     .section-title span {
-      background: linear-gradient(90deg, #7c3aed, #06b6d4, #a855f7, #ec4899, #06b6d4, #7c3aed);
+      background: linear-gradient(90deg, #f97316, #f59e0b, #fbbf24, #ef4444, #f59e0b, #f97316);
       background-size: 300% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -463,10 +465,10 @@
       100% { background-position: 300% center; }
     }
     /* ===== HERO NAME PULSE ===== */
-    .hero-name { animation: name-pulse 4s ease-in-out infinite; }
+    .hero-name { animation: name-pulse 4s ease-in-out infinite; font-family: 'Ma Shan Zheng', cursive; }
     @keyframes name-pulse {
-      0%,100% { text-shadow: 0 0 60px rgba(124,58,237,0.4), 0 0 120px rgba(6,182,212,0.2); }
-      50% { text-shadow: 0 0 90px rgba(168,85,247,0.7), 0 0 180px rgba(6,182,212,0.4); }
+      0%,100% { text-shadow: 0 0 60px rgba(249,115,22,0.5), 0 0 120px rgba(245,158,11,0.3); }
+      50% { text-shadow: 0 0 100px rgba(251,191,36,0.9), 0 0 200px rgba(249,115,22,0.6); }
     }
     /* ===== HERO BADGE FLOAT ===== */
     .hero-badge { animation: badge-float 3s ease-in-out infinite; }
@@ -485,6 +487,80 @@
     @keyframes chip-shine { 0% { left:-100%; } 60%,100% { left:150%; } }
     /* ===== CARD TILT TRANSITION ===== */
     .glass-card { transform-style: preserve-3d; will-change: transform; }
+    /* ===== EXP CARD V2 ===== */
+    .exp-grid-v2 { display: grid; gap: 2.5rem; }
+    .exp-card-v2 { padding: 0; overflow: hidden; }
+    .exp-logo-header {
+      display: flex; align-items: center; gap: 1.4rem;
+      padding: 1.6rem 2rem;
+      background: linear-gradient(135deg, rgba(249,115,22,0.18), rgba(245,158,11,0.06));
+      border-bottom: 1px solid rgba(249,115,22,0.2);
+    }
+    .company-logo {
+      width: 64px; height: 64px; border-radius: 14px; object-fit: cover;
+      border: 2px solid rgba(249,115,22,0.5);
+      box-shadow: 0 6px 24px rgba(249,115,22,0.35);
+      flex-shrink: 0; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .company-logo:hover { transform: scale(1.08); box-shadow: 0 10px 36px rgba(249,115,22,0.5); }
+    .company-name-big {
+      font-size: 1.3rem; font-weight: 800; color: var(--text-main);
+      font-family: 'Ma Shan Zheng', cursive; letter-spacing: 1px;
+    }
+    .company-sub { font-size: 0.82rem; color: var(--accent2); margin: 0.2rem 0; }
+    .exp-period-row { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.4rem; flex-wrap: wrap; }
+    .exp-period-badge {
+      font-size: 0.74rem; color: var(--text-muted);
+      border: 1px solid var(--border); border-radius: 100px; padding: 2px 10px;
+    }
+    .now-badge {
+      background: var(--grad-main); color: white;
+      font-size: 0.7rem; font-weight: 700; padding: 2px 10px; border-radius: 100px;
+      animation: now-pulse 2s ease-in-out infinite;
+    }
+    @keyframes now-pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(249,115,22,0.5); }
+      50% { box-shadow: 0 0 0 8px rgba(249,115,22,0); }
+    }
+    .exp-bg-bar {
+      padding: 0.7rem 2rem; background: rgba(249,115,22,0.06);
+      font-size: 0.82rem; color: var(--text-muted);
+      border-bottom: 1px solid rgba(249,115,22,0.1);
+      font-style: italic; letter-spacing: 0.3px;
+    }
+    .projects-wrap { padding: 1.2rem 1.6rem; display: flex; flex-direction: column; gap: 0.7rem; }
+    .proj-item { border-radius: 12px; overflow: hidden; border: 1px solid rgba(249,115,22,0.13); }
+    .proj-header {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.85rem 1.2rem; cursor: pointer;
+      background: rgba(249,115,22,0.05); transition: background 0.2s; user-select: none;
+    }
+    .proj-header:hover { background: rgba(249,115,22,0.13); }
+    .proj-num {
+      font-size: 1.8rem; font-weight: 900; line-height: 1; min-width: 36px;
+      background: var(--grad-main); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+      font-family: 'Caveat', cursive;
+    }
+    .proj-name { flex: 1; font-weight: 600; font-size: 0.93rem; color: var(--text-main); }
+    .proj-arrow { color: var(--accent2); transition: transform 0.35s; font-size: 0.8rem; }
+    .proj-item.open .proj-arrow { transform: rotate(180deg); }
+    .proj-content {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
+      padding: 0 1.2rem; background: rgba(249,115,22,0.02);
+    }
+    .proj-item.open .proj-content { max-height: 1000px; padding: 0.8rem 1.2rem 1rem; }
+    .proj-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .proj-bullets li {
+      font-size: 0.87rem; color: var(--text-muted);
+      display: flex; gap: 0.6rem; line-height: 1.8;
+      padding-bottom: 0.5rem; border-bottom: 1px solid rgba(249,115,22,0.07);
+    }
+    .proj-bullets li:last-child { border-bottom: none; padding-bottom: 0; }
+    .proj-bullets li::before { content: '◆'; color: var(--accent1); font-size: 0.55rem; margin-top: 7px; flex-shrink: 0; }
+    .proj-bullets strong { color: var(--text-main); }
+    .exp-stats { padding: 1rem 1.6rem 1.6rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
   </style>
 </head>
 <body>
@@ -519,7 +595,7 @@
   <div class="hero-content">
     <div class="hero-badge">
       <span class="dot"></span>
-      目前正在寻找实习机会
+      寻找一个不被定义、放大音量的机会
     </div>
     <h1 class="hero-name">廖勇</h1>
     <p class="hero-sub">Hobert · 南京师范大学 · 新闻与传播</p>
@@ -615,73 +691,186 @@
     <p class="section-label fade-in">实习经历</p>
     <h2 class="section-title fade-in">深入真实场景，<span>以结果沉淀运营经验</span></h2>
     <div class="section-divider fade-in"></div>
-    <div class="exp-grid">
-      <!-- 收钱吧 -->
-      <div class="glass-card exp-card fade-in">
-        <div class="exp-header">
-          <div class="exp-meta">
-            <div class="exp-company">💳 收钱吧</div>
-            <div class="exp-role">商家运营实习生</div>
+    <div class="exp-grid-v2">
+
+      <!-- 得物 -->
+      <div class="glass-card exp-card-v2 fade-in">
+        <div class="exp-logo-header">
+          <img src="images/dewu.jpg" class="company-logo" alt="得物">
+          <div class="exp-info-wrap">
+            <div class="company-name-big">得物</div>
+            <div class="company-sub">潮流电商平台 · 商家运营</div>
+            <div class="exp-period-row">
+              <span class="exp-period-badge">📅 2026.07 — 至今</span>
+              <span class="now-badge">在职中</span>
+            </div>
           </div>
-          <span class="exp-period">2026.04 — 2026.06</span>
         </div>
-        <ul class="exp-list">
-          <li><div><strong>门店搭建：</strong>通过电话/微信触达区域餐饮/零售商家，协助完成 <strong>15 家</strong>餐饮商家线上门店装修，完成头图设计、菜品图册上传、服务标签配置、门店公告编辑等全链路模块搭建，助力商家高效完成线上化，提升用户信任度与进店转化。</div></li>
-          <li><div><strong>商品运营：</strong>推动 <strong>10 家</strong>门店首批团购商品上架，协助商家完成商品详情页优化及主推品置顶，通过优化商品结构提升店铺转化效率，区域商家累计支付 <strong>GMV 100W+</strong>，<strong>平均核销率提升至 65%</strong>。</div></li>
-          <li><div><strong>评分维护：</strong>制定商家评分提升 SOP，梳理「提升新鲜评价数、降低差评率」核心策略，针对评分低的商家制定专项提升方案，通过话术优化、回评引导推动 <strong>8 家</strong>门店评分从 <strong>4.2 提升至 4.5+</strong>。</div></li>
-          <li><div><strong>数据追踪：</strong>通过飞书机器人追踪商家日/周/月经营数据「GMV/核销/退款/客单价」，识别分析异常指标并提供优化建议，协助运营企业微信商家社群 <strong>50+</strong>，维护群内答疑与需求响应，推动商家持续提升经营表现。</div></li>
-        </ul>
-        <div class="stat-chips">
+        <div class="exp-bg-bar">面向 22 万个人商家、1200 个运营群、80 名群管做分层运维</div>
+        <div class="projects-wrap">
+          <div class="proj-item open">
+            <div class="proj-header" onclick="toggleProj(this)">
+              <span class="proj-num">01</span>
+              <span class="proj-name">B端商家分层运维</span>
+              <span class="proj-arrow">▾</span>
+            </div>
+            <div class="proj-content">
+              <ul class="proj-bullets">
+                <li><div><strong>群管管理：</strong>负责 <strong>80 名</strong>群管日常管理，从尾部商家选拔活跃者担任群管，赋予企微权限与佣金激励，透传管理政策、核算佣金，定期统计各群留存与成交产出，淘汰不达标人员。</div></li>
+                <li><div><strong>社群运维：</strong>负责 <strong>300 个</strong>新商群、300 个搬运群日常管理，每日确保约 300 人新增进群，定期检查群二维码有效性；维护 <strong>5 个</strong>头部商家群，配合推荐官完成企微权限配置与红包发放。</div></li>
+              </ul>
+            </div>
+          </div>
+          <div class="proj-item">
+            <div class="proj-header" onclick="toggleProj(this)">
+              <span class="proj-num">02</span>
+              <span class="proj-name">商机分发会员运营</span>
+              <span class="proj-arrow">▾</span>
+            </div>
+            <div class="proj-content">
+              <ul class="proj-bullets">
+                <li><div><strong>商机管理：</strong>每日检查商机分发后台，处理飞书群投诉、审核推荐官准入；对接 <strong>8 个</strong>推荐官策略群，透传政策、核算佣金、复盘推荐转化率。</div></li>
+                <li><div><strong>会员运营：</strong>负责新享 <strong>813 人</strong>、轻享 <strong>160 人</strong>、尊享 <strong>64 人</strong>三档付费会员运营，每周用 SQL 筛选 <strong>30 个</strong>趋势品上传会员页面，周二配置商品券、周四社群扩散暗券，三档 GMV 分别达 <strong>573 万、218 万、150 万</strong>。</div></li>
+                <li><div><strong>选品推广：</strong>运营淘宝/京东/穿山甲/唯品会联盟账号池，每日筛选 <strong>15–20 款</strong>高性价比商品推送 C 端社群，C 端业务<strong>月成交额约 20 万</strong>。</div></li>
+              </ul>
+            </div>
+          </div>
+          <div class="proj-item">
+            <div class="proj-header" onclick="toggleProj(this)">
+              <span class="proj-num">03</span>
+              <span class="proj-name">社群业务数据追踪</span>
+              <span class="proj-arrow">▾</span>
+            </div>
+            <div class="proj-content">
+              <ul class="proj-bullets">
+                <li><div><strong>周报核算：</strong>每周用 SQL 下载更新商机数据，核算增量订单、GMV、UE、成本，输出 UE ROI 周报跟踪 Q3 目标达成；期间<strong>日均订单最高 1816 个、GMV 最高 111 万，UE ROI 峰值达 12.1</strong>。</div></li>
+                <li><div><strong>考核统计：</strong>用 SQL 记录 80 名群管月度成交 GMV，均值约 <strong>8.35 万</strong>；查询计算会员用券收益，均值约 <strong>40.8 万</strong>，评估会员活动投入产出。</div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="exp-stats">
+          <span class="stat-chip">GMV 峰值 111W/日</span>
+          <span class="stat-chip">ROI 峰值 12.1</span>
+          <span class="stat-chip">群管 80 人</span>
+          <span class="stat-chip">C端月交 20W</span>
+        </div>
+      </div>
+
+      <!-- 收钱吧 -->
+      <div class="glass-card exp-card-v2 fade-in">
+        <div class="exp-logo-header">
+          <img src="images/sqb.jpg" class="company-logo" alt="收钱吧">
+          <div class="exp-info-wrap">
+            <div class="company-name-big">收钱吧</div>
+            <div class="company-sub">「抖音本地生活」业务线 · 商家运营</div>
+            <div class="exp-period-row">
+              <span class="exp-period-badge">📅 2026.04 — 2026.06</span>
+            </div>
+          </div>
+        </div>
+        <div class="exp-bg-bar">面向餐饮、体育、丽人行业中小商家提供代运营服务，按 GMV 对头腰尾商家分层运营</div>
+        <div class="projects-wrap">
+          <div class="proj-item open">
+            <div class="proj-header" onclick="toggleProj(this)">
+              <span class="proj-num">01</span>
+              <span class="proj-name">商家入驻店铺交付</span>
+              <span class="proj-arrow">▾</span>
+            </div>
+            <div class="proj-content">
+              <ul class="proj-bullets">
+                <li><div><strong>门店装修：</strong>完成 <strong>15 家</strong>商家门店装修上线，对接商家确认菜品图来源与页面风格，协调外包团队出图后在抖音来客后台配置头图、相册、服务标签等模块。</div></li>
+                <li><div><strong>商品上架：</strong>协助 <strong>10 家</strong>门店完成首批商品上线，核对套餐价格、库存、核销周期，配置「店长力荐」标识；所服务商家累计支付 <strong>GMV 突破 100 万</strong>，<strong>平均核销率达 65%</strong>。</div></li>
+              </ul>
+            </div>
+          </div>
+          <div class="proj-item">
+            <div class="proj-header" onclick="toggleProj(this)">
+              <span class="proj-num">02</span>
+              <span class="proj-name">商家经营指标提升</span>
+              <span class="proj-arrow">▾</span>
+            </div>
+            <div class="proj-content">
+              <ul class="proj-bullets">
+                <li><div><strong>评分管理：</strong><strong>8 家</strong>门店评分从 <strong>4.2 提升至 4.5+</strong>，围绕增加新鲜评价数、降低差评率执行提升方案，提供话术模板与回评引导，跟进经营分达 70 分以上获铜牌标识。</div></li>
+                <li><div><strong>数据复盘：</strong>定期核对飞书机器人推送经营数据，检查 GMV、核销率、退款率等指标异常波动，核对 AI 建议合理性并同步商家执行。</div></li>
+              </ul>
+            </div>
+          </div>
+          <div class="proj-item">
+            <div class="proj-header" onclick="toggleProj(this)">
+              <span class="proj-num">03</span>
+              <span class="proj-name">社群运维商家维护</span>
+              <span class="proj-arrow">▾</span>
+            </div>
+            <div class="proj-content">
+              <ul class="proj-bullets">
+                <li><div><strong>社群维护：</strong>负责 <strong>50+ 个</strong>企微商家群日常运维，处理商品审核不通过、门店违规预警、新套餐上架等各类需求，同步运营进度与数据复盘报告，保持高响应率提升商家合作满意度。</div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="exp-stats">
           <span class="stat-chip">GMV 100W+</span>
           <span class="stat-chip">核销率 65%</span>
           <span class="stat-chip">评分 4.2→4.5+</span>
           <span class="stat-chip">社群 50+</span>
         </div>
       </div>
-      <!-- 新华报业 -->
-      <div class="glass-card exp-card fade-in">
-        <div class="exp-header">
-          <div class="exp-meta">
-            <div class="exp-company">📰 新华报业传媒集团 · 南京晨报</div>
-            <div class="exp-role">内容运营实习生</div>
+
+      <!-- 南京晨报 -->
+      <div class="glass-card exp-card-v2 fade-in">
+        <div class="exp-logo-header">
+          <img src="images/njcb.jpg" class="company-logo" alt="南京晨报">
+          <div class="exp-info-wrap">
+            <div class="company-name-big">新华报业 · 南京晨报</div>
+            <div class="company-sub">省级权威媒体 · 内容运营</div>
+            <div class="exp-period-row">
+              <span class="exp-period-badge">📅 2025.07 — 2025.09</span>
+            </div>
           </div>
-          <span class="exp-period">2025.07 — 2025.09</span>
         </div>
-        <ul class="exp-list">
-          <li><div><strong>短视频运营：</strong>为提升内容传播效果，策划执行「就医指南」等 <strong>15+ 条</strong>服务性短片，<strong>单条最高播放 1w+</strong>；运用 AI 工具处理采访录音并辅助生成稿件框架，创作效率提升约 <strong>30%</strong>。</div></li>
-          <li><div><strong>内容矩阵搭建：</strong>针对短视频用户制作短平快服务内容，针对公众号用户策划深度报道，通过「短视频+图文」组合验评不同渠道策略；在南京晨报纸媒平台发表稿件 <strong>3–5 篇</strong>，<strong>单篇最高阅读量 5000+</strong>。</div></li>
-          <li><div><strong>数据驱动迭代：</strong>定期复盘内容播放、互动与传播数据，根据「科普短视频完播率高」「基层医疗故事转发突出」等发现，动态调整选题方向与内容形式。</div></li>
-        </ul>
-        <div class="stat-chips">
+        <div class="exp-bg-bar">负责医疗健康选题采访写作、短视频制作、公众号运营</div>
+        <div class="projects-wrap">
+          <div class="proj-item open">
+            <div class="proj-header" onclick="toggleProj(this)">
+              <span class="proj-num">01</span>
+              <span class="proj-name">稿件采写与短视频创作</span>
+              <span class="proj-arrow">▾</span>
+            </div>
+            <div class="proj-content">
+              <ul class="proj-bullets">
+                <li><div><strong>稿件采写：</strong>独立完成选题策划、实地采访到稿件撰写各环节，在南京晨报平台发表稿件 <strong>3–5 篇</strong>，<strong>单篇最高阅读量超 5000</strong>。</div></li>
+                <li><div><strong>短视频：</strong>策划执行「就医指南」等 <strong>15 条以上</strong>服务性短视频，<strong>单条最高播放量破万</strong>。</div></li>
+              </ul>
+            </div>
+          </div>
+          <div class="proj-item">
+            <div class="proj-header" onclick="toggleProj(this)">
+              <span class="proj-num">02</span>
+              <span class="proj-name">账号运营与 AI 提效</span>
+              <span class="proj-arrow">▾</span>
+            </div>
+            <div class="proj-content">
+              <ul class="proj-bullets">
+                <li><div><strong>账号运营：</strong>围绕医疗健康、知识科普策划公众号推文，完成文案撰写、图片处理、秀米排版，累计发布 <strong>5 篇以上</strong>，<strong>单篇最高阅读量超 500</strong>。</div></li>
+                <li><div><strong>AI 提效：</strong>用 AI 工具处理采访录音辅助生成稿件框架，<strong>创作效率提升约 30%</strong>。</div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="exp-stats">
           <span class="stat-chip">短视频 15+ 条</span>
-          <span class="stat-chip">单条播放 1w+</span>
+          <span class="stat-chip">播放量 1w+</span>
           <span class="stat-chip">效率 +30%</span>
-          <span class="stat-chip">稿件阅读 5000+</span>
+          <span class="stat-chip">阅读 5000+</span>
         </div>
       </div>
-      <!-- 福建驻津团工委 -->
-      <div class="glass-card exp-card fade-in">
-        <div class="exp-header">
-          <div class="exp-meta">
-            <div class="exp-company">🏛️ 福建驻津团工委</div>
-            <div class="exp-role">活动运营实习生</div>
-          </div>
-          <span class="exp-period">2021.10 — 2022.10</span>
-        </div>
-        <ul class="exp-list">
-          <li><div><strong>活动统筹：</strong>协助联谊交流、创业辅导、就业服务等 <strong>3 场</strong>青年志愿活动全流程统筹，负责人员分工、动线规划与资源对接，单场服务 <strong>50+ 人次</strong>，<strong>到场率 95%+</strong>，获「表现突出干事」表彰。</div></li>
-          <li><div><strong>内容运营：</strong>针对账号选题同质化问题，主导福建民俗文化、乡贤故事等特色内容策划，独立完成文案撰写与秀米排版，建立「选题-撰写-校对-发布」标准流程，累计发布原创推文 <strong>20+ 篇</strong>，<strong>总阅读量 1.5w+</strong>，单篇最高 <strong>1800+</strong>。</div></li>
-          <li><div><strong>数据优化：</strong>通过分析用户阅读偏好与互动行为，针对性调整内容形式与选题方向，实现阅读量较往期提升 <strong>60%</strong>，粉丝互动量提升 <strong>45%</strong>。</div></li>
-        </ul>
-        <div class="stat-chips">
-          <span class="stat-chip">到场率 95%+</span>
-          <span class="stat-chip">阅读量 1.5w+</span>
-          <span class="stat-chip">互动率 ↑45%</span>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
+
 
 <!-- ===== PROJECTS ===== -->
 <section id="projects">
@@ -855,6 +1044,7 @@
           <span class="skill-group-icon">📊</span> 数据分析
         </div>
         <div class="skill-tags">
+          <span class="skill-tag">SQL</span>
           <span class="skill-tag">SPSS</span>
           <span class="skill-tag">AMOS</span>
           <span class="skill-tag">Python</span>
@@ -1035,6 +1225,13 @@
   });
 
   /* ===== PROJECT DETAIL TOGGLE ===== */
+  /* ===== TOGGLE PROJECT ACCORDION ===== */
+  function toggleProj(header) {
+    const item = header.parentElement;
+    item.classList.toggle('open');
+  }
+
+  /* ===== TOGGLE DETAIL ===== */
   function toggleDetail(btn) {
     const actions = btn.closest('.detail-actions');
     const content = actions ? actions.nextElementSibling : btn.nextElementSibling;
