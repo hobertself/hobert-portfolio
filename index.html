@@ -34,9 +34,7 @@
       color: var(--text-main);
       overflow-x: hidden;
       line-height: 1.7;
-      cursor: none; /* Hide default cursor */
     }
-    a, button, .proj-header, .contact-item { cursor: none !important; }
     
     /* ===== AMBIENT BACKGROUND & CANVAS TRAIL ===== */
     #trail-canvas {
@@ -1208,27 +1206,12 @@
 
   let targetX = window.innerWidth / 2;
   let targetY = window.innerHeight / 2;
-  let cursorX = targetX;
-  let cursorY = targetY;
-  let isHover = false;
-  let isClick = false;
-  let ringRadius = 12;
 
   window.addEventListener('mousemove', e => {
     targetX = e.clientX;
     targetY = e.clientY;
     trails.push({ x: targetX, y: targetY, life: 1, size: Math.random() * 2 + 1.5 });
   }, { passive: true });
-
-  window.addEventListener('mousedown', () => isClick = true);
-  window.addEventListener('mouseup', () => isClick = false);
-
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest('a, button, .proj-header, .contact-item')) isHover = true;
-  });
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest('a, button, .proj-header, .contact-item')) isHover = false;
-  });
 
   /* ===== DYNAMIC BACKGROUND NODES ===== */
   const bgCanvas = document.getElementById('bg-canvas');
@@ -1301,12 +1284,6 @@
 
   function renderTrail() {
     tCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
-    
-    // Instant Cursor (Zero Latency)
-    cursorX = targetX;
-    cursorY = targetY;
-    let targetR = isHover ? 22 : (isClick ? 8 : 12);
-    ringRadius += (targetR - ringRadius) * 0.2;
 
     // Draw Particles
     for(let i=0; i<trails.length; i++) {
@@ -1321,19 +1298,6 @@
       p.y += (Math.random()*0.8); 
     }
     trails = trails.filter(p => p.life > 0);
-
-    // Draw Custom Cursor Ring
-    tCtx.beginPath();
-    tCtx.arc(cursorX, cursorY, ringRadius, 0, Math.PI*2);
-    tCtx.lineWidth = 2;
-    if (isHover) {
-      tCtx.strokeStyle = 'rgba(124, 58, 237, 0.8)';
-      tCtx.fillStyle = 'rgba(124, 58, 237, 0.15)';
-      tCtx.fill();
-    } else {
-      tCtx.strokeStyle = 'rgba(6, 182, 212, 0.8)';
-    }
-    tCtx.stroke();
 
     requestAnimationFrame(renderTrail);
   }
