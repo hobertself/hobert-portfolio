@@ -51,16 +51,16 @@
     }
     .ambient-blob {
       position: absolute; border-radius: 50%;
-      filter: blur(90px); opacity: 0.35;
-      animation: ambient-drift 18s infinite alternate ease-in-out;
+      filter: blur(80px); opacity: 0.45;
+      animation: ambient-drift 12s infinite alternate ease-in-out;
       will-change: transform;
     }
     .ambient-blob.purple { width: 45vw; height: 45vw; background: #7c3aed; top: -10vw; left: -10vw; }
-    .ambient-blob.cyan { width: 35vw; height: 35vw; background: #06b6d4; bottom: -5vw; right: -5vw; animation-delay: -9s; animation-duration: 22s; }
-    .ambient-blob.pink { width: 30vw; height: 30vw; background: #ec4899; top: 40vh; left: 30vw; opacity: 0.15; animation-duration: 25s; }
+    .ambient-blob.cyan { width: 35vw; height: 35vw; background: #06b6d4; bottom: -5vw; right: -5vw; animation-delay: -6s; animation-duration: 15s; }
+    .ambient-blob.pink { width: 30vw; height: 30vw; background: #ec4899; top: 40vh; left: 30vw; opacity: 0.25; animation-duration: 18s; }
     @keyframes ambient-drift {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(6vw, 4vh) scale(1.05); }
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      100% { transform: translate(12vw, 10vh) scale(1.2) rotate(10deg); }
     }
     .ambient-noise {
       position: absolute; inset: 0; opacity: 0.8;
@@ -683,17 +683,17 @@
       <div class="glass-card about-card fade-in">
         <div class="about-icon icon-purple">📊</div>
         <h3>全链路商家运营能力</h3>
-        <p>具备完整的商家运营能力画像。在<strong>得物</strong>跑通“管人、管货、管数”逻辑，从大规模B端用户管理、商机运营转化到数据推动决策，实现从执行到分析的递进；在<strong>收钱吧</strong>覆盖交付、增长、维护全周期，打通帮商家上线、提效到续约的完整链路。</p>
+        <p>具备全链路的商家运营能力画像。熟练掌握“管人、管货、管数”底层逻辑，从大规模B端用户精细化管理、商机转化到数据驱动决策，实现从单点执行到深度分析的递进；擅长覆盖交付、增长、维护的商家全生命周期，打通从上线、提效到续约的完整业务链路。</p>
       </div>
       <div class="glass-card about-card fade-in">
         <div class="about-icon icon-cyan">✍️</div>
-        <h3>敏锐的内容与渠道感知</h3>
-        <p>将<strong>新华报业</strong>作为内容行业的深度补充经历。通过独立完成稿件采写与官方矩阵账号运营，证明了扎实的内容 Sense 与多渠道运营能力，能够精准洞察受众情绪，结合不同平台特性产出高质量内容。</p>
+        <h3>敏锐的内容感知与分发</h3>
+        <p>拥有扎实的内容 Sense 与多渠道分发能力。能够独立主导高赞稿件的策划采写与新媒体矩阵账号运营；善于精准洞察受众情绪，捕捉行业热点，并结合不同平台特性高效产出引爆流量的高质量内容。</p>
       </div>
       <div class="glass-card about-card fade-in">
         <div class="about-icon icon-pink">🤖</div>
         <h3>极强的自驱力与工具意识</h3>
-        <p>保持对前沿业务的敏锐度与持续迭代的<strong>自驱力</strong>。在过往经历中主动引入 AI 工具赋能内容产出与业务流，体现了优秀的工具使用意识与降本增效思维。不为自我设限，以破局者心态不断突破工作边界。</p>
+        <p>保持对前沿技术的敏锐度与持续迭代的极强自驱力。习惯主动引入 AI 等先进工具赋能内容产出与业务全流程，具备出色的降本增效思维；不为自我设限，始终以破局者心态主动探索并打破工作边界。</p>
       </div>
     </div>
   </div>
@@ -1241,15 +1241,16 @@
     bgCanvas.width = window.innerWidth;
     bgCanvas.height = window.innerHeight;
     bgNodes = [];
-    const count = Math.floor((window.innerWidth * window.innerHeight) / 12000);
+    const count = Math.floor((window.innerWidth * window.innerHeight) / 10000); // More nodes
     for(let i=0; i<count; i++) {
       bgNodes.push({
         x: Math.random() * bgCanvas.width,
         y: Math.random() * bgCanvas.height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        size: Math.random() * 1.5 + 0.5,
-        alpha: Math.random() * 0.4 + 0.1
+        vx: (Math.random() - 0.5) * 0.6, // Faster movement
+        vy: (Math.random() - 0.5) * 0.6,
+        size: Math.random() * 2 + 1, // Larger nodes
+        alpha: Math.random() * 0.5 + 0.2, // More visible
+        color: Math.random() > 0.5 ? '6,182,212' : '124,58,237' // Cyan & Purple
       });
     }
   }
@@ -1259,6 +1260,8 @@
   function renderBg() {
     if(!bgCtx) return;
     bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+    
+    // Update & Draw Lines First
     for(let i=0; i<bgNodes.length; i++) {
       let n = bgNodes[i];
       n.x += n.vx;
@@ -1268,9 +1271,29 @@
       if(n.y < 0) n.y = bgCanvas.height;
       if(n.y > bgCanvas.height) n.y = 0;
       
+      for(let j=i+1; j<bgNodes.length; j++) {
+        let n2 = bgNodes[j];
+        let dx = n.x - n2.x;
+        let dy = n.y - n2.y;
+        let distSq = dx*dx + dy*dy;
+        if(distSq < 15000) { // Approx 120px connect distance
+          bgCtx.beginPath();
+          bgCtx.moveTo(n.x, n.y);
+          bgCtx.lineTo(n2.x, n2.y);
+          let alphaLine = (1 - Math.sqrt(distSq)/122) * 0.3;
+          bgCtx.strokeStyle = `rgba(124, 58, 237, ${alphaLine})`;
+          bgCtx.lineWidth = 1;
+          bgCtx.stroke();
+        }
+      }
+    }
+    
+    // Draw Nodes on top
+    for(let i=0; i<bgNodes.length; i++) {
+      let n = bgNodes[i];
       bgCtx.beginPath();
       bgCtx.arc(n.x, n.y, n.size, 0, Math.PI*2);
-      bgCtx.fillStyle = `rgba(255, 255, 255, ${n.alpha})`;
+      bgCtx.fillStyle = `rgba(${n.color}, ${n.alpha})`;
       bgCtx.fill();
     }
     requestAnimationFrame(renderBg);
