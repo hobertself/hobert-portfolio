@@ -7,24 +7,24 @@
   <meta name="description" content="廖勇（Hobert）的个人主页 — 新闻与传播学研究生，求职内容运营方向，擅长AI工具提效与数据驱动创作。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Ma+Shan+Zheng&family=Caveat:wght@400;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg-deep:    #150800;
-      --bg-dark:    #1f0e00;
-      --bg-card:    rgba(255,160,60,0.07);
-      --border:     rgba(255,180,80,0.15);
-      --accent1:    #f97316;
-      --accent2:    #f59e0b;
-      --accent3:    #fbbf24;
-      --text-main:  #fef3c7;
-      --text-muted: #a37c4a;
-      --grad-main:  linear-gradient(135deg, #f97316, #f59e0b);
-      --grad-warm:  linear-gradient(135deg, #ef4444, #f97316);
-      --glass:      rgba(255,200,80,0.06);
-      --glass-border: rgba(255,200,80,0.15);
+      --bg-deep:    #080c20;
+      --bg-dark:    #0f1535;
+      --bg-card:    rgba(255,255,255,0.05);
+      --border:     rgba(255,255,255,0.10);
+      --accent1:    #7c3aed;
+      --accent2:    #06b6d4;
+      --accent3:    #a855f7;
+      --text-main:  #e8eaf6;
+      --text-muted: #94a3b8;
+      --grad-main:  linear-gradient(135deg, #7c3aed, #06b6d4);
+      --grad-warm:  linear-gradient(135deg, #a855f7, #ec4899);
+      --glass:      rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.12);
       --radius:     16px;
     }
     html { scroll-behavior: smooth; }
@@ -35,8 +35,6 @@
       overflow-x: hidden;
       line-height: 1.7;
     }
-    h1, h2 { font-family: 'Ma Shan Zheng', 'Noto Sans SC', sans-serif; }
-    .nav-logo { font-family: 'Ma Shan Zheng', cursive; letter-spacing: 2px; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; border-radius: var(--radius); }
 
@@ -423,17 +421,17 @@
       opacity: 0.13; pointer-events: none; z-index: 0;
     }
     .bg-orb-1 {
-      width: 650px; height: 650px; background: #f97316;
+      width: 650px; height: 650px; background: #7c3aed;
       top: -180px; left: -180px;
       animation: orb-float1 20s ease-in-out infinite;
     }
     .bg-orb-2 {
-      width: 500px; height: 500px; background: #f59e0b;
+      width: 500px; height: 500px; background: #06b6d4;
       bottom: 8%; right: -120px;
       animation: orb-float2 25s ease-in-out infinite;
     }
     .bg-orb-3 {
-      width: 420px; height: 420px; background: #ef4444;
+      width: 420px; height: 420px; background: #ec4899;
       top: 45%; left: 30%;
       animation: orb-float3 30s ease-in-out infinite;
     }
@@ -453,7 +451,7 @@
     }
     /* ===== ANIMATED GRADIENT TEXT ===== */
     .section-title span {
-      background: linear-gradient(90deg, #f97316, #f59e0b, #fbbf24, #ef4444, #f59e0b, #f97316);
+      background: linear-gradient(90deg, #7c3aed, #06b6d4, #a855f7, #ec4899, #06b6d4, #7c3aed);
       background-size: 300% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -465,10 +463,10 @@
       100% { background-position: 300% center; }
     }
     /* ===== HERO NAME PULSE ===== */
-    .hero-name { animation: name-pulse 4s ease-in-out infinite; font-family: 'Ma Shan Zheng', cursive; }
+    .hero-name { animation: name-pulse 4s ease-in-out infinite; }
     @keyframes name-pulse {
-      0%,100% { text-shadow: 0 0 60px rgba(249,115,22,0.5), 0 0 120px rgba(245,158,11,0.3); }
-      50% { text-shadow: 0 0 100px rgba(251,191,36,0.9), 0 0 200px rgba(249,115,22,0.6); }
+      0%,100% { text-shadow: 0 0 60px rgba(124,58,237,0.4), 0 0 120px rgba(6,182,212,0.2); }
+      50% { text-shadow: 0 0 90px rgba(168,85,247,0.7), 0 0 180px rgba(6,182,212,0.4); }
     }
     /* ===== HERO BADGE FLOAT ===== */
     .hero-badge { animation: badge-float 3s ease-in-out infinite; }
@@ -493,19 +491,19 @@
     .exp-logo-header {
       display: flex; align-items: center; gap: 1.4rem;
       padding: 1.6rem 2rem;
-      background: linear-gradient(135deg, rgba(249,115,22,0.18), rgba(245,158,11,0.06));
-      border-bottom: 1px solid rgba(249,115,22,0.2);
+      background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(6,182,212,0.06));
+      border-bottom: 1px solid rgba(124,58,237,0.2);
     }
     .company-logo {
       width: 64px; height: 64px; border-radius: 14px; object-fit: cover;
-      border: 2px solid rgba(249,115,22,0.5);
-      box-shadow: 0 6px 24px rgba(249,115,22,0.35);
+      border: 2px solid rgba(124,58,237,0.5);
+      box-shadow: 0 6px 24px rgba(124,58,237,0.35);
       flex-shrink: 0; transition: transform 0.3s, box-shadow 0.3s;
     }
-    .company-logo:hover { transform: scale(1.08); box-shadow: 0 10px 36px rgba(249,115,22,0.5); }
+    .company-logo:hover { transform: scale(1.08); box-shadow: 0 10px 36px rgba(124,58,237,0.5); }
     .company-name-big {
       font-size: 1.3rem; font-weight: 800; color: var(--text-main);
-      font-family: 'Ma Shan Zheng', cursive; letter-spacing: 1px;
+      letter-spacing: 1px;
     }
     .company-sub { font-size: 0.82rem; color: var(--accent2); margin: 0.2rem 0; }
     .exp-period-row { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.4rem; flex-wrap: wrap; }
@@ -519,28 +517,27 @@
       animation: now-pulse 2s ease-in-out infinite;
     }
     @keyframes now-pulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(249,115,22,0.5); }
-      50% { box-shadow: 0 0 0 8px rgba(249,115,22,0); }
+      0%,100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.5); }
+      50% { box-shadow: 0 0 0 8px rgba(124,58,237,0); }
     }
     .exp-bg-bar {
-      padding: 0.7rem 2rem; background: rgba(249,115,22,0.06);
+      padding: 0.7rem 2rem; background: rgba(124,58,237,0.06);
       font-size: 0.82rem; color: var(--text-muted);
-      border-bottom: 1px solid rgba(249,115,22,0.1);
+      border-bottom: 1px solid rgba(124,58,237,0.1);
       font-style: italic; letter-spacing: 0.3px;
     }
     .projects-wrap { padding: 1.2rem 1.6rem; display: flex; flex-direction: column; gap: 0.7rem; }
-    .proj-item { border-radius: 12px; overflow: hidden; border: 1px solid rgba(249,115,22,0.13); }
+    .proj-item { border-radius: 12px; overflow: hidden; border: 1px solid rgba(124,58,237,0.13); }
     .proj-header {
       display: flex; align-items: center; gap: 1rem;
       padding: 0.85rem 1.2rem; cursor: pointer;
-      background: rgba(249,115,22,0.05); transition: background 0.2s; user-select: none;
+      background: rgba(124,58,237,0.05); transition: background 0.2s; user-select: none;
     }
-    .proj-header:hover { background: rgba(249,115,22,0.13); }
+    .proj-header:hover { background: rgba(124,58,237,0.13); }
     .proj-num {
       font-size: 1.8rem; font-weight: 900; line-height: 1; min-width: 36px;
       background: var(--grad-main); -webkit-background-clip: text;
       -webkit-text-fill-color: transparent; background-clip: text;
-      font-family: 'Caveat', cursive;
     }
     .proj-name { flex: 1; font-weight: 600; font-size: 0.93rem; color: var(--text-main); }
     .proj-arrow { color: var(--accent2); transition: transform 0.35s; font-size: 0.8rem; }
@@ -548,14 +545,14 @@
     .proj-content {
       max-height: 0; overflow: hidden;
       transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
-      padding: 0 1.2rem; background: rgba(249,115,22,0.02);
+      padding: 0 1.2rem; background: rgba(124,58,237,0.02);
     }
     .proj-item.open .proj-content { max-height: 1000px; padding: 0.8rem 1.2rem 1rem; }
     .proj-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
     .proj-bullets li {
       font-size: 0.87rem; color: var(--text-muted);
       display: flex; gap: 0.6rem; line-height: 1.8;
-      padding-bottom: 0.5rem; border-bottom: 1px solid rgba(249,115,22,0.07);
+      padding-bottom: 0.5rem; border-bottom: 1px solid rgba(124,58,237,0.07);
     }
     .proj-bullets li:last-child { border-bottom: none; padding-bottom: 0; }
     .proj-bullets li::before { content: '◆'; color: var(--accent1); font-size: 0.55rem; margin-top: 7px; flex-shrink: 0; }
