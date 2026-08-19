@@ -446,14 +446,7 @@
       background: var(--grad-main); z-index: 10000;
       box-shadow: 0 0 14px rgba(124,58,237,0.9); transition: width 0.05s;
     }
-    /* ===== CURSOR GLOW ===== */
-    #cursor-glow {
-      position: fixed; width: 380px; height: 380px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,58,237,0.10) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
-      transform: translate(-50%, -50%);
-      transition: left 0.12s ease, top 0.12s ease;
-    }
+    /* Removed cursor-glow CSS */
     /* ===== FLOATING ORBS ===== */
     .bg-orb {
       position: fixed; border-radius: 50%; filter: blur(100px);
@@ -614,7 +607,6 @@
 </head>
 <body>
 <div id="scroll-progress"></div>
-<div id="cursor-glow"></div>
 <div class="ambient-bg">
   <div class="ambient-blob purple"></div>
   <div class="ambient-blob cyan"></div>
@@ -1354,12 +1346,7 @@
     if (total > 0) progressBar.style.width = (scrolled / total * 100) + '%';
   }, { passive: true });
 
-  /* ===== CURSOR GLOW ===== */
-  const cursorGlow = document.getElementById('cursor-glow');
-  window.addEventListener('mousemove', e => {
-    cursorGlow.style.left = e.clientX + 'px';
-    cursorGlow.style.top = e.clientY + 'px';
-  }, { passive: true });
+  /* Removed cursor-glow JS */
 
   /* ===== 3D CARD TILT ===== */
   document.querySelectorAll('.glass-card').forEach(card => {
