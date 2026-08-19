@@ -67,6 +67,10 @@
       background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
       background-size: 24px 24px;
     }
+    #bg-canvas {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0.5; z-index: 1; pointer-events: none;
+    }
 
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; border-radius: var(--radius); }
@@ -617,6 +621,7 @@
   <div class="ambient-blob purple"></div>
   <div class="ambient-blob cyan"></div>
   <div class="ambient-blob pink"></div>
+  <canvas id="bg-canvas"></canvas>
   <div class="ambient-noise"></div>
 </div>
 
@@ -1226,12 +1231,58 @@
     if (e.target.closest('a, button, .proj-header, .contact-item')) isHover = false;
   });
 
+  /* ===== DYNAMIC BACKGROUND NODES ===== */
+  const bgCanvas = document.getElementById('bg-canvas');
+  const bgCtx = bgCanvas.getContext('2d');
+  let bgNodes = [];
+  
+  function initBgNodes() {
+    if(!bgCanvas) return;
+    bgCanvas.width = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+    bgNodes = [];
+    const count = Math.floor((window.innerWidth * window.innerHeight) / 12000);
+    for(let i=0; i<count; i++) {
+      bgNodes.push({
+        x: Math.random() * bgCanvas.width,
+        y: Math.random() * bgCanvas.height,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        size: Math.random() * 1.5 + 0.5,
+        alpha: Math.random() * 0.4 + 0.1
+      });
+    }
+  }
+  window.addEventListener('resize', initBgNodes);
+  initBgNodes();
+
+  function renderBg() {
+    if(!bgCtx) return;
+    bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+    for(let i=0; i<bgNodes.length; i++) {
+      let n = bgNodes[i];
+      n.x += n.vx;
+      n.y += n.vy;
+      if(n.x < 0) n.x = bgCanvas.width;
+      if(n.x > bgCanvas.width) n.x = 0;
+      if(n.y < 0) n.y = bgCanvas.height;
+      if(n.y > bgCanvas.height) n.y = 0;
+      
+      bgCtx.beginPath();
+      bgCtx.arc(n.x, n.y, n.size, 0, Math.PI*2);
+      bgCtx.fillStyle = `rgba(255, 255, 255, ${n.alpha})`;
+      bgCtx.fill();
+    }
+    requestAnimationFrame(renderBg);
+  }
+  renderBg();
+
   function renderTrail() {
     tCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
     
-    // Lerp Cursor
-    cursorX += (targetX - cursorX) * 0.4;
-    cursorY += (targetY - cursorY) * 0.4;
+    // Instant Cursor (Zero Latency)
+    cursorX = targetX;
+    cursorY = targetY;
     let targetR = isHover ? 22 : (isClick ? 8 : 12);
     ringRadius += (targetR - ringRadius) * 0.2;
 
