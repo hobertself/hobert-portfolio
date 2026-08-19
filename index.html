@@ -7,7 +7,7 @@
   <meta name="description" content="廖勇（Hobert）的个人主页 — 新闻与传播学研究生，求职内容运营方向，擅长AI工具提效与数据驱动创作。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Playfair+Display:ital@1&family=Zhi+Mang+Xing&display=swap" rel="stylesheet" />
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,7 +34,33 @@
       color: var(--text-main);
       overflow-x: hidden;
       line-height: 1.7;
+      cursor: none; /* Hide default cursor */
     }
+    a, button, .proj-header, .contact-item { cursor: none !important; }
+    
+    /* ===== CUSTOM CURSOR & TRAIL ===== */
+    #trail-canvas {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none; z-index: 9998;
+    }
+    .custom-cursor {
+      position: fixed; top: 0; left: 0; width: 24px; height: 24px;
+      border: 2px solid var(--accent2); border-radius: 50%;
+      pointer-events: none; z-index: 10001;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+      box-shadow: 0 0 15px rgba(6,182,212,0.6);
+    }
+    .custom-cursor.hovering {
+      width: 45px; height: 45px;
+      background-color: rgba(124,58,237,0.15);
+      border-color: var(--accent1);
+      box-shadow: 0 0 25px rgba(124,58,237,0.7);
+    }
+    .custom-cursor.clicking {
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; border-radius: var(--radius); }
 
@@ -469,10 +495,23 @@
       50% { text-shadow: 0 0 90px rgba(168,85,247,0.7), 0 0 180px rgba(6,182,212,0.4); }
     }
     /* ===== HERO BADGE FLOAT ===== */
-    .hero-badge { animation: badge-float 3s ease-in-out infinite; }
-    @keyframes badge-float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    .hero-badge { 
+      font-family: 'Zhi Mang Xing', cursive;
+      font-size: 2.5rem;
+      color: #e8eaf6;
+      background: transparent;
+      border: none;
+      text-shadow: 0 0 20px rgba(6,182,212,0.8), 0 0 40px rgba(124,58,237,0.8);
+      letter-spacing: 4px;
+      animation: badge-float 4s ease-in-out infinite; 
+      padding: 0;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge .dot { display: none; }
+    @keyframes badge-float { 
+      0%,100% { transform: translateY(0) scale(1); } 
+      50% { transform: translateY(-8px) scale(1.02); text-shadow: 0 0 30px rgba(6,182,212,1), 0 0 60px rgba(124,58,237,1); } 
     }
     /* ===== STAT CHIP SHINE ===== */
     .stat-chip { position: relative; overflow: hidden; }
@@ -600,11 +639,11 @@
       <span class="typewriter" id="typewriter"></span>
     </div>
     <div class="hero-tags">
-      <span class="tag">📝 内容运营</span>
-      <span class="tag">💳 商家运营</span>
-      <span class="tag">🎦 短视频创作</span>
-      <span class="tag">🤖 AI 提效</span>
-      <span class="tag">📊 数据分析</span>
+      <span class="tag">🔥 流量操盘手</span>
+      <span class="tag">🚀 数据驱动增长</span>
+      <span class="tag">🧠 AI 提效引擎</span>
+      <span class="tag">💡 破局思维</span>
+      <span class="tag">⚡ 跨界运营</span>
     </div>
     <div class="hero-btns">
       <a href="#projects" class="btn-primary">查看作品集</a>
@@ -1086,7 +1125,7 @@
     <h2 class="section-title fade-in">期待与你的<span>每一次连接</span></h2>
     <div class="section-divider fade-in" style="margin-left:auto;margin-right:auto;"></div>
     <div class="contact-inner fade-in">
-      <p class="contact-subtitle">正在寻找实习机会，欢迎 HR 和感兴趣的朋友联系我 👋</p>
+      <p class="contact-subtitle">寻找一个令人心动的 OFFER，期待与您的团队共同创造价值 👋</p>
       <div class="contact-items">
         <div class="contact-item" onclick="copyToClipboard('hobertself@outlook.com', this)">
           <span class="ci-icon">📧</span>
@@ -1106,7 +1145,7 @@
           <span class="ci-value">南京师范大学 · 新闻与传播</span>
         </div>
       </div>
-      <p class="contact-note">📍 目标城市：上海  |  可随时开始实习  |  可实习时长：3–6 个月及以上</p>
+      <p class="contact-note poetic-note" style="font-family: 'Playfair Display', 'Zhi Mang Xing', serif; font-size: 1.6rem; margin-top: 3rem; color: var(--accent2); text-shadow: 0 0 10px rgba(6,182,212,0.3); font-style: italic;">生命，其实到最后总能成诗</p>
     </div>
   </div>
 </section>
@@ -1183,9 +1222,9 @@
 
   /* ===== TYPEWRITER ===== */
   const lines = [
-    '用内容创造连接，以运营驱动增长',
-    '有实战，懂内容，善用工具驱动增长',
-    'Let the world hear your voice!'
+    '打破边界，以数据与洞察驱动全域增长',
+    '从内容策划到商业变现，做业务破局的操盘手',
+    '探索无限可能，寻找属于我的高光时刻'
   ];
   let li = 0, ci = 0, deleting = false;
   const tw = document.getElementById('typewriter');
@@ -1201,6 +1240,57 @@
     setTimeout(type, deleting ? 40 : 80);
   }
   type();
+
+  /* ===== MOUSE TRAIL & CUSTOM CURSOR ===== */
+  const cursor = document.createElement('div');
+  cursor.className = 'custom-cursor';
+  document.body.appendChild(cursor);
+  
+  const trailCanvas = document.createElement('canvas');
+  trailCanvas.id = 'trail-canvas';
+  document.body.appendChild(trailCanvas);
+  const tCtx = trailCanvas.getContext('2d');
+  let trails = [];
+  
+  function resizeTCanvas() {
+    trailCanvas.width = window.innerWidth;
+    trailCanvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeTCanvas);
+  resizeTCanvas();
+
+  window.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    trails.push({ x: e.clientX, y: e.clientY, life: 1, size: Math.random() * 3 + 2 });
+  });
+
+  window.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+  window.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+
+  document.querySelectorAll('a, button, .proj-header, .contact-item').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+  });
+
+  function renderTrail() {
+    tCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+    for(let i=0; i<trails.length; i++) {
+      let p = trails[i];
+      tCtx.beginPath();
+      tCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI*2);
+      tCtx.fillStyle = `rgba(6, 182, 212, ${p.life})`;
+      tCtx.shadowBlur = 10;
+      tCtx.shadowColor = '#06b6d4';
+      tCtx.fill();
+      p.life -= 0.025; 
+      p.x += (Math.random()-0.5)*1.5; 
+      p.y += Math.random()*1; 
+    }
+    trails = trails.filter(p => p.life > 0);
+    requestAnimationFrame(renderTrail);
+  }
+  renderTrail();
 
   /* ===== SCROLL FADE IN ===== */
   const observer = new IntersectionObserver((entries) => {
