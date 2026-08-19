@@ -47,18 +47,21 @@
       position: fixed; top: 0; left: 0; width: 24px; height: 24px;
       border: 2px solid var(--accent2); border-radius: 50%;
       pointer-events: none; z-index: 10001;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+      will-change: transform, width, height, background-color, border-color;
+      margin: -12px 0 0 -12px;
+      transition: width 0.15s, height 0.15s, background-color 0.15s, border-color 0.15s, margin 0.15s;
       box-shadow: 0 0 15px rgba(6,182,212,0.6);
     }
     .custom-cursor.hovering {
       width: 45px; height: 45px;
+      margin: -22.5px 0 0 -22.5px;
       background-color: rgba(124,58,237,0.15);
       border-color: var(--accent1);
       box-shadow: 0 0 25px rgba(124,58,237,0.7);
     }
     .custom-cursor.clicking {
-      transform: translate(-50%, -50%) scale(0.8);
+      width: 16px; height: 16px;
+      margin: -8px 0 0 -8px;
     }
 
     a { text-decoration: none; color: inherit; }
@@ -102,32 +105,36 @@
     #hero {
       position: relative; min-height: 100vh;
       display: flex; align-items: center; justify-content: center;
-      overflow: hidden; padding: 6rem 2rem 4rem;
-    }
-    #particle-canvas {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-    }
-    .hero-bg-img {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      object-fit: cover; opacity: 0.25; z-index: 0; border-radius: 0;
-    }
-    .hero-overlay {
-      position: absolute; inset: 0; z-index: 1;
-      background: radial-gradient(ellipse at 50% 50%, rgba(124,58,237,0.20) 0%, rgba(8,12,32,0.70) 70%);
+      overflow: hidden; text-align: center;
+      background: radial-gradient(circle at center, var(--bg-dark) 0%, var(--bg-deep) 100%);
     }
     .hero-content {
       position: relative; z-index: 2; text-align: center; max-width: 800px;
     }
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 18px; border-radius: 100px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.5rem;
-      animation: fadeInDown 0.8s ease both;
+      font-family: 'Zhi Mang Xing', cursive;
+      font-size: 2.5rem;
+      color: #e8eaf6;
+      background: transparent;
+      border: none;
+      text-shadow: 0 0 20px rgba(6,182,212,0.8), 0 0 40px rgba(124,58,237,0.8);
+      letter-spacing: 4px;
+      animation: fadeInDown 0.8s ease both, badge-float 4s ease-in-out infinite;
+      padding: 0;
+      display: inline-block;
+      margin-bottom: 1.5rem;
     }
-    .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; animation: pulse 2s infinite; }
+    .hero-badge .dot { display: none; }
+    .hero-slogan {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.8rem;
+      color: var(--accent2);
+      text-shadow: 0 0 15px rgba(6,182,212,0.4);
+      margin-top: -1rem;
+      margin-bottom: 2rem;
+      animation: fadeInDown 0.9s ease 0.35s both;
+    }
     .hero-name {
       font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 900;
       line-height: 1.1; margin-bottom: 0.5rem;
@@ -625,9 +632,6 @@
 
 <!-- ===== HERO ===== -->
 <section id="hero">
-  <img class="hero-bg-img" src="images/hero-bg.png" alt="背景" />
-  <div class="hero-overlay"></div>
-  <canvas id="particle-canvas"></canvas>
   <div class="hero-content">
     <div class="hero-badge">
       <span class="dot"></span>
@@ -638,10 +642,10 @@
     <div class="hero-title-line">
       <span class="typewriter" id="typewriter"></span>
     </div>
+    <div class="hero-slogan">Let the world hear your voice!</div>
     <div class="hero-tags">
-      <span class="tag">🔥 流量操盘手</span>
       <span class="tag">🚀 数据驱动增长</span>
-      <span class="tag">🧠 AI 提效引擎</span>
+      <span class="tag">🧠 AI 提效</span>
       <span class="tag">💡 破局思维</span>
       <span class="tag">⚡ 跨界运营</span>
     </div>
@@ -1156,75 +1160,11 @@
 </footer>
 
 <script>
-  /* ===== PARTICLE CANVAS ===== */
-  const canvas = document.getElementById('particle-canvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = document.getElementById('hero').offsetHeight;
-  }
-
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.vx = (Math.random() - 0.5) * 0.4;
-      this.vy = (Math.random() - 0.5) * 0.4;
-      this.r = Math.random() * 1.8 + 0.4;
-      this.alpha = Math.random() * 0.5 + 0.2;
-      this.color = Math.random() > 0.5 ? '124,58,237' : '6,182,212';
-    }
-    update() {
-      this.x += this.vx; this.y += this.vy;
-      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
-      ctx.fill();
-    }
-  }
-
-  function initParticles() {
-    particles = [];
-    const count = Math.min(Math.floor(canvas.width * canvas.height / 10000), 150);
-    for (let i = 0; i < count; i++) particles.push(new Particle());
-  }
-
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    // Draw connections
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 100) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(124,58,237,${0.12 * (1 - dist/100)})`;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(animateParticles);
-  }
-
-  resizeCanvas(); initParticles(); animateParticles();
-  window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
-
   /* ===== TYPEWRITER ===== */
   const lines = [
-    '打破边界，以数据与洞察驱动全域增长',
-    '从内容策划到商业变现，做业务破局的操盘手',
-    '探索无限可能，寻找属于我的高光时刻'
+    '全链路商家运营，具备管人、管货、管数的完整能力',
+    '从0到1交付与提效，覆盖商家生命周期管理',
+    '敏锐内容嗅觉结合AI提效，多渠道驱动业务增长'
   ];
   let li = 0, ci = 0, deleting = false;
   const tw = document.getElementById('typewriter');
@@ -1259,11 +1199,21 @@
   window.addEventListener('resize', resizeTCanvas);
   resizeTCanvas();
 
+  let targetX = window.innerWidth / 2;
+  let targetY = window.innerHeight / 2;
+
   window.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    trails.push({ x: e.clientX, y: e.clientY, life: 1, size: Math.random() * 3 + 2 });
-  });
+    targetX = e.clientX;
+    targetY = e.clientY;
+    trails.push({ x: targetX, y: targetY, life: 1, size: Math.random() * 3 + 2 });
+  }, { passive: true });
+
+  // Use requestAnimationFrame for super smooth cursor
+  function updateCursor() {
+    cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+    requestAnimationFrame(updateCursor);
+  }
+  updateCursor();
 
   window.addEventListener('mousedown', () => cursor.classList.add('clicking'));
   window.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
